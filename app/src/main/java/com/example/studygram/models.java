@@ -5,7 +5,7 @@ public class models {
     private String subject:
     private String description;
 
-    public post ()
+    public post () {}
 
         public post (String title;String subject ;String description;) {
          this.title= title;  //Attribute der Klasse Post werden überschrieben
