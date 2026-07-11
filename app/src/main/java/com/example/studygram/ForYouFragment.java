@@ -11,7 +11,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.studygram.databinding.FragmentFirstBinding;
 
-public class FirstFragment extends Fragment {
+public class ForYouFragment extends Fragment {
 
     private FragmentFirstBinding binding;
 
@@ -30,7 +30,7 @@ public class FirstFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.buttonFirst.setOnClickListener(v ->
-                NavHostFragment.findNavController(FirstFragment.this)
+                NavHostFragment.findNavController(ForYouFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment)
         );
     }

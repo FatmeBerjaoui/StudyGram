@@ -1,4 +1,4 @@
-package models;
+package com.example.studygram.models;
 
 public class Post {
     private String title;
@@ -40,4 +40,4 @@ public class Post {
         this.description = description;
     }
 }
-}
+
