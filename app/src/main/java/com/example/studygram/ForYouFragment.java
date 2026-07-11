@@ -1,5 +1,13 @@
 package com.example.studygram;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.studygram.adapters.FeedAdapter;
+import com.example.studygram.models.Post;
+
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,30 +17,42 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.studygram.databinding.FragmentFirstBinding;
+import com.example.studygram.databinding.FragmentForYouBinding;
 
 public class ForYouFragment extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private FragmentForYouBinding binding;
+    private ArrayList<Post> posts;
+    private FeedAdapter adapter;
 
     @Override
     public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentForYouBinding.inflate(inflater, container, false);
+        posts = new ArrayList<>();
+
+        posts.add(new Post(
+                "Mathe",
+                "Analysis",
+                "Integralrechnung erklärt"
+        ));
+
+        posts.add(new Post(
+                "Java",
+                "Programmierung",
+                "Klassen und Objekte"
+        ));
+
+        adapter = new FeedAdapter(posts);
+
+        binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerViewPosts.setAdapter(adapter);
         return binding.getRoot();
 
-    }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        binding.buttonFirst.setOnClickListener(v ->
-                NavHostFragment.findNavController(ForYouFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment)
-        );
     }
 
     @Override
