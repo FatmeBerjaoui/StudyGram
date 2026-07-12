@@ -74,7 +74,6 @@ public class LoginActivity extends AppCompatActivity{
     private void goToMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         // Verhindert, dass man mit "Zurück" wieder zum Login kommt
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
