@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.studygram.databinding.ActivityLoginBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity{
     private ActivityLoginBinding binding;
@@ -23,10 +24,11 @@ public class LoginActivity extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
 
         // Login-Button Klick
-        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
+        binding.tvGoToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser();
+                // TODO: Register-Screen kommt später
+                Toast.makeText(LoginActivity.this, "Register kommt bald", Toast.LENGTH_SHORT).show();
             }
         });
 
