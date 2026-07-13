@@ -19,7 +19,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
     private List<Post> postList;
 
     public FeedAdapter(List<Post> postList) {
-        this.postList = postList;
+        this.postList = postList; //Konstruktor, für den Adapter meiner Posts
     }
 
     @NonNull
