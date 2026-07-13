@@ -36,15 +36,19 @@ public class ForYouFragment extends Fragment {
         posts = new ArrayList<>();
 
         posts.add(new Post(
+                "Max Müller",
                 "Mathe",
                 "Analysis",
-                "Integralrechnung erklärt"
+                "Integralrechnung erklärt",
+                25
         ));
 
         posts.add(new Post(
+                "Sarah",
                 "Java",
                 "Programmierung",
-                "Klassen und Objekte"
+                "Klassen und Objekte",
+                16
         ));
 
         adapter = new FeedAdapter(posts);
