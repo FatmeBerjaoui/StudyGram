@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="125dp"
         android:textColor="#FF3FB5"
-        android:fontFamily ="@font/poppins_semi_bold_italic"
+        android:fontFamily ="@font/poppins_semi_bold_italic"/>
 
     <TextView
         android:id="@+id/tvStudyGram"
@@ -102,7 +102,7 @@
         android:fontFamily ="@font/poppins_regular"/>
 
     <TextView
-        android:id="@+id/Register"
+        android:id="@+id/tvGoToRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
