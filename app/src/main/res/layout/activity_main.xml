@@ -10,19 +10,15 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="90dp"
+        android:background="#121212">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="220dp"
             android:layout_height="70dp"
-            android:background="#121212"
-
-            app:logo="@drawable/study_gram"
-            app:logoDescription="StudyGram"
-            app:title=""
-            app:contentInsetStartWithNavigation="0dp"/>
+            android:layout_gravity="center"
+            android:src="@drawable/study_gram"
+            android:scaleType="fitCenter"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
