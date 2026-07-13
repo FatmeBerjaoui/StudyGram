@@ -52,5 +52,12 @@ public class Post {
     public void setDescription(String description) {
         this.description = description;
     }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
 }
 
