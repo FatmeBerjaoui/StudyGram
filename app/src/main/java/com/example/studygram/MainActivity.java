@@ -43,7 +43,13 @@ public class MainActivity extends AppCompatActivity {
         });
         setSupportActionBar(binding.toolbar);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        androidx.fragment.app.FragmentContainerView navHost =
+                findViewById(R.id.nav_host_fragment_content_main);
+
+        NavController navController =
+                androidx.navigation.fragment.NavHostFragment
+                        .findNavController(navHost);
+
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 

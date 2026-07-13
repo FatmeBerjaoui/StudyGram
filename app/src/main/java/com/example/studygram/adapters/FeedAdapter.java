@@ -27,7 +27,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_post, parent, false);
+                .inflate(R.layout.item_post, parent, false); //für jeden Post soll die XML-Vorlage benutzt werden
 
         return new PostViewHolder(view);
     }
@@ -37,7 +37,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
 
         Post post = postList.get(position);
 
-        holder.tvTitle.setText(post.getTitle());
+        holder.tvTitle.setText(post.getTitle()); //"schreibe den Titel der Posts in die Textview"
         holder.tvSubject.setText(post.getSubject());
         holder.tvDescription.setText(post.getDescription());
 
