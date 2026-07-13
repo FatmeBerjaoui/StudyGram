@@ -16,7 +16,13 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="70dp"
+            android:background="#121212"
+
+            app:logo="@drawable/study_gram"
+            app:logoDescription="StudyGram"
+            app:title=""
+            app:contentInsetStartWithNavigation="0dp"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
