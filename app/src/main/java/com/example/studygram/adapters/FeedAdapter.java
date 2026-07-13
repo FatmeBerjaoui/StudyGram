@@ -18,12 +18,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
 
     private List<Post> postList;
 
+
+
     public FeedAdapter(List<Post> postList) {
         this.postList = postList; //Konstruktor, für den Adapter meiner Posts
     }
 
     @NonNull
     @Override
+
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
@@ -40,6 +43,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         holder.tvTitle.setText(post.getTitle()); //"schreibe den Titel der Posts in die Textview"
         holder.tvSubject.setText(post.getSubject());
         holder.tvDescription.setText(post.getDescription());
+        holder.tvUsername.setText(post.getUsername());
+        holder.tvLikes.setText("❤️ " + post.getLikes());
 
     }
 
@@ -53,6 +58,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         TextView tvTitle;
         TextView tvSubject;
         TextView tvDescription;
+        TextView tvUsername;
+        TextView tvLikes;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,6 +67,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvSubject = itemView.findViewById(R.id.tvSubject);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvUsername = itemView.findViewById(R.id.tvUsername);
+            tvLikes = itemView.findViewById(R.id.tvLikes);
+
         }
     }
 }

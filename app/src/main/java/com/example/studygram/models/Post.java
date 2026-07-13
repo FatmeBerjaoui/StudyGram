@@ -4,15 +4,20 @@ public class Post {
     private String title;
     private String subject;
     private String description;
+    private String username;
+    private int likes;
 
     public Post() { //leerer Konstruktor für Firebase
 
     }
 
-        public Post(String title, String subject , String description) {
-         this.title= title;  //Attribute der Klasse Post werden überschrieben
-         this.subject= subject;
-         this.description= description;
+    public Post(String username, String title,String subject,String description, int likes) {
+
+        this.username = username;
+        this.title = title;
+        this.subject = subject;
+        this.description = description;
+        this.likes = likes;
     }
     // Getter
     public String getTitle() {
@@ -25,6 +30,14 @@ public class Post {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getLikes() {
+        return likes;
     }
 
     // Setter
