@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/henny_penny-regular"/>
+        android:fontFamily="@font/henny_penny_regular.ttf"/>
 
     <EditText
         android:padding="16dp"
