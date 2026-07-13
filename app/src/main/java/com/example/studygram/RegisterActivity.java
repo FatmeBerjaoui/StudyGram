@@ -7,6 +7,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 public class RegisterActivity  extends AppCompatActivity {
 
@@ -77,7 +80,17 @@ public class RegisterActivity  extends AppCompatActivity {
                     sendVerificationEmail(user);
                 } else {
                     binding.tvError.setVisibility(View.VISIBLE);
-                    binding.tvError.setText("Registrierung fehlgeschlagen");
+                    Exception e = task.getException();
+
+                    if (e instanceof FirebaseAuthUserCollisionException) {
+                        binding.tvError.setText("Dieser Account existiert bereits");
+                    } else if (e instanceof FirebaseAuthWeakPasswordException) {
+                        binding.tvError.setText("Passwort ist zu schwach");
+                    } else if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                        binding.tvError.setText("Ungültiges Email-Format");
+                    } else {
+                        binding.tvError.setText("Registrierung fehlgeschlagen");
+                    }
                 }
             }
         });
