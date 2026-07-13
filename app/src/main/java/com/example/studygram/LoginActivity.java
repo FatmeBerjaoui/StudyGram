@@ -8,6 +8,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity{
@@ -60,10 +62,18 @@ public class LoginActivity extends AppCompatActivity{
                     goToMainActivity();
                 } else {
                     binding.tvError.setVisibility(View.VISIBLE);
-                    binding.tvError.setText("Login fehlgeschlagen: Email oder Passwort falsch");
+                    Exception e = task.getException();
+                    if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                        binding.tvError.setText("Email oder Passwort falsch");
+                    } else if (e instanceof FirebaseAuthInvalidUserException) {
+                        binding.tvError.setText("Kein Account mit dieser Email gefunden");
+                    } else {
+                        binding.tvError.setText("Login fehlgeschlagen");
+                    }
                 }
             }
         });
+
     }
 
     private void goToMainActivity() {
