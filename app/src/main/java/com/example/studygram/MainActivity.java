@@ -46,12 +46,6 @@ public class MainActivity extends AppCompatActivity {
         androidx.fragment.app.FragmentContainerView navHost =
                 findViewById(R.id.nav_host_fragment_content_main);
 
-        NavController navController =
-                androidx.navigation.fragment.NavHostFragment
-                        .findNavController(navHost);
-
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,8 +81,5 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+        return super.onSupportNavigateUp();
     }
-}
