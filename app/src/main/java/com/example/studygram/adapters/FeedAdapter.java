@@ -47,6 +47,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         holder.tvLikes.setText("❤️ " + post.getLikes());
 
     }
+    //bla
 
     @Override
     public int getItemCount() {
