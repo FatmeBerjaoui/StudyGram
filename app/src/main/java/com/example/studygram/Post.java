@@ -6,6 +6,8 @@ public class Post {
     private String subject;
     private String imageUrl;
     private String userId;
+    private String description;
+
 
     // Firestore braucht einen leeren Konstruktor, um Objekte automatisch zu erstellen
     public Post() {
@@ -33,6 +35,8 @@ public class Post {
     public String getUserId() {
         return userId;
     }
-
+    public String getDescription() {
+        return description;
+    }
 
 }
