@@ -31,7 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
             String email = user.getEmail();
             int atIndex = email.indexOf("@");
             String username = email.substring(0, atIndex);
-            binding.tvUsername.setText(user.getEmail());
+            binding.tvUsername.setText(username);
         }
 
         binding.btnSavedPosts.setOnClickListener(new View.OnClickListener() {
