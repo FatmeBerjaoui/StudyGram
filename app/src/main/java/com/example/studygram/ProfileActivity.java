@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.studygram.databinding.ActivityProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -46,5 +49,14 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this, "Settings kommt bald", Toast.LENGTH_SHORT).show();
             }
         });
+        // Test-Liste, um zu prüfen ob der RecyclerView funktioniert
+        List<Post> testPosts = new ArrayList<>();
+        testPosts.add(new Post("Testpost 1", "Mathe", "Beschreibung 1", "", ""));
+        testPosts.add(new Post("Testpost 2", "Englisch", "Beschreibung 2", "", ""));
+        testPosts.add(new Post("Testpost 3", "Biologie", "Beschreibung 3", "", ""));
+
+        PostAdapter adapter = new PostAdapter(testPosts);
+        binding.rvPosts.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvPosts.setAdapter(adapter);
     }
 }
