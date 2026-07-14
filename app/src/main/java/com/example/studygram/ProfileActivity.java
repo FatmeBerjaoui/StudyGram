@@ -55,8 +55,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
     // Test-Liste, um zu prüfen ob der RecyclerView funktioniert
     private void setupRecyclerView() {
-        List<Post> PostList = new ArrayList<>();
-        PostAdapter adapter = new PostAdapter(PostList);
+        List<Post> postList= new ArrayList<>();
+        PostAdapter adapter = new PostAdapter(postList);
         binding.rvPosts.setLayoutManager(new LinearLayoutManager(this));
         binding.rvPosts.setAdapter(adapter);
 
