@@ -49,7 +49,11 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this, "Settings kommt bald", Toast.LENGTH_SHORT).show();
             }
         });
-        // Test-Liste, um zu prüfen ob der RecyclerView funktioniert
+        setupRecyclerView();
+
+    }
+    // Test-Liste, um zu prüfen ob der RecyclerView funktioniert
+    private void setupRecyclerView() {
         List<Post> testPosts = new ArrayList<>();
         testPosts.add(new Post("Testpost 1", "Mathe", "Beschreibung 1", "", ""));
         testPosts.add(new Post("Testpost 2", "Englisch", "Beschreibung 2", "", ""));
