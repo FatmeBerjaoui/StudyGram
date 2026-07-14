@@ -4,9 +4,13 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.studygram.databinding.ActivityLoginBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
-import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity{
     private ActivityLoginBinding binding;
@@ -16,23 +20,18 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // View Binding statt findViewById
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Firebase Auth Instanz holen
         mAuth = FirebaseAuth.getInstance();
 
-        // Login-Button Klick
-        binding.tvGoToRegister.setOnClickListener(new View.OnClickListener() {
+        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Register-Screen kommt später
-                Toast.makeText(LoginActivity.this, "Register kommt bald", Toast.LENGTH_SHORT).show();
+                loginUser();
             }
         });
 
-        // Klick auf "Noch kein Konto? Register hier"
         binding.tvGoToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,10 +42,9 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     private void loginUser() {
-        String email = binding.etEmail.getText().toString().trim();
-        String password = binding.etPassword.getText().toString().trim();
+        String email = binding.etEmail.getText().toString();
+        String password = binding.etPassword.getText().toString();
 
-        // Einfache Eingabeprüfung
         if (email.isEmpty()) {
             binding.etEmail.setError("Email wird benötigt");
             return;
@@ -56,19 +54,26 @@ public class LoginActivity extends AppCompatActivity{
             return;
         }
 
-        // Firebase Login-Anfrage
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        // Login erfolgreich
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        goToMainActivity();
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    goToMainActivity();
+                } else {
+                    binding.tvError.setVisibility(View.VISIBLE);
+                    Exception e = task.getException();
+                    if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                        binding.tvError.setText("Email oder Passwort falsch");
+                    } else if (e instanceof FirebaseAuthInvalidUserException) {
+                        binding.tvError.setText("Kein Account mit dieser Email gefunden");
                     } else {
-                        // Login fehlgeschlagen -> Fehlermeldung anzeigen
-                        binding.tvError.setVisibility(View.VISIBLE);
-                        binding.tvError.setText("Login fehlgeschlagen: Email oder Passwort falsch");
+                        binding.tvError.setText("Login fehlgeschlagen");
                     }
-                });
+                }
+            }
+        });
+
     }
 
     private void goToMainActivity() {
