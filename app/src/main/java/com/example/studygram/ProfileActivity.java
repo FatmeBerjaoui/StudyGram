@@ -12,7 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-public class ProfileActivity extends AppCompatActivity {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+public class
+ProfileActivity extends AppCompatActivity {
 
     private ActivityProfileBinding binding;
 
@@ -34,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
             String username = email.substring(0, atIndex);
             binding.tvUsername.setText(username);
         }
+
 
         binding.btnSavedPosts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +67,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String currentUserId = mAuth.getCurrentUser().getUid();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser == null) {
+            return;
+        }
+        String currentUserId = currentUser.getUid();
 
         db.collection("posts")
                 .whereEqualTo("userId", currentUserId)
