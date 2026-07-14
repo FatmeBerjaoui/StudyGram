@@ -10,7 +10,8 @@ import com.google.firebase.auth.FirebaseUser;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 public class ProfileActivity extends AppCompatActivity {
 
     private ActivityProfileBinding binding;
@@ -54,13 +55,30 @@ public class ProfileActivity extends AppCompatActivity {
     }
     // Test-Liste, um zu prüfen ob der RecyclerView funktioniert
     private void setupRecyclerView() {
-        List<Post> testPosts = new ArrayList<>();
-        testPosts.add(new Post("Testpost 1", "Mathe", "Beschreibung 1", "", ""));
-        testPosts.add(new Post("Testpost 2", "Englisch", "Beschreibung 2", "", ""));
-        testPosts.add(new Post("Testpost 3", "Biologie", "Beschreibung 3", "", ""));
-
-        PostAdapter adapter = new PostAdapter(testPosts);
+        List<Post> PostList = new ArrayList<>();
+        PostAdapter adapter = new PostAdapter(PostList);
         binding.rvPosts.setLayoutManager(new LinearLayoutManager(this));
         binding.rvPosts.setAdapter(adapter);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String currentUserId = mAuth.getCurrentUser().getUid();
+
+        db.collection("posts")
+                .whereEqualTo("userId", currentUserId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (Post post : task.getResult().toObjects(Post.class)) {
+                                postList.add(post);
+                            }
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(ProfileActivity.this, "Posts konnten nicht geladen werden", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
