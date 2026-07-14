@@ -18,6 +18,7 @@ public class Post {
         this.subject = subject;
         this.imageUrl = imageUrl;
         this.userId = userId;
+        this.description = description;
     }
 
     public String getTitle() {
