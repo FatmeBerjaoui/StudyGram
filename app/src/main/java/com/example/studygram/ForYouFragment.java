@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.studygram.databinding.FragmentForYouBinding;
@@ -54,6 +56,43 @@ public class ForYouFragment extends Fragment {
 
         filteredPosts = new ArrayList<>(posts);
         adapter = new FeedAdapter(filteredPosts);
+
+        adapter = new FeedAdapter(filteredPosts);
+
+        binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerViewPosts.setAdapter(adapter);
+
+// HIER kommt der TextWatcher
+
+        binding.etSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                ArrayList<Post> neueListe = new ArrayList<>();
+
+                for (Post post : posts) {
+
+                    if (post.getTitle().toLowerCase().contains(s.toString().toLowerCase())
+                            || post.getSubject().toLowerCase().contains(s.toString().toLowerCase())) {
+
+                        neueListe.add(post);
+                    }
+                }
+
+                adapter.updateList(neueListe);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        return binding.getRoot();
 
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewPosts.setAdapter(adapter);
