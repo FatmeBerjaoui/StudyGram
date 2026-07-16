@@ -7,6 +7,7 @@ public class Post {
     private String username;
     private int likes;
     private boolean liked = false;
+    private boolean saved = false;
 
     public Post() { //leerer Konstruktor für Firebase
 
@@ -43,6 +44,9 @@ public class Post {
     public boolean isLiked() {
         return liked;
     }
+    public boolean isSaved() {
+        return saved;
+    }
 
     // Setter
     public void setTitle(String title) {
@@ -65,6 +69,9 @@ public class Post {
     }
     public void setLiked(boolean liked) {
         this.liked = liked;
+    }
+    public void setSaved(boolean saved) {
+        this.saved = saved;
     }
 }
 
