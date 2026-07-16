@@ -72,5 +72,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
             tvLikes = itemView.findViewById(R.id.tvLikes);
 
         }
+
+    }
+    public void updateList(List<Post> neueListe){
+        postList = neueListe;
+        notifyDataSetChanged();
     }
 }

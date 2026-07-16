@@ -23,6 +23,7 @@ public class ForYouFragment extends Fragment {
 
     private FragmentForYouBinding binding;
     private ArrayList<Post> posts;
+    private ArrayList<Post> filteredPosts;
     private FeedAdapter adapter;
 
     @Override
@@ -51,7 +52,8 @@ public class ForYouFragment extends Fragment {
                 16
         ));
 
-        adapter = new FeedAdapter(posts);
+        filteredPosts = new ArrayList<>(posts);
+        adapter = new FeedAdapter(filteredPosts);
 
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewPosts.setAdapter(adapter);
