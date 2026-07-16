@@ -57,7 +57,6 @@ public class ForYouFragment extends Fragment {
         filteredPosts = new ArrayList<>(posts);
         adapter = new FeedAdapter(filteredPosts);
 
-        adapter = new FeedAdapter(filteredPosts);
 
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewPosts.setAdapter(adapter);
@@ -77,8 +76,11 @@ public class ForYouFragment extends Fragment {
 
                 for (Post post : posts) {
 
-                    if (post.getTitle().toLowerCase().contains(s.toString().toLowerCase())
-                            || post.getSubject().toLowerCase().contains(s.toString().toLowerCase())) {
+                    String suche = s.toString().toLowerCase();
+
+                    if (post.getTitle().toLowerCase().contains(suche)
+                            || post.getSubject().toLowerCase().contains(suche)
+                            || post.getDescription().toLowerCase().contains(suche)) {
 
                         neueListe.add(post);
                     }
