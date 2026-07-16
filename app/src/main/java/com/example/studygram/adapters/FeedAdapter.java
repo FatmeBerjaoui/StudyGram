@@ -47,8 +47,26 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         holder.tvUsername.setText(post.getUsername());
         holder.tvLikes.setText("❤️ " + post.getLikes());
 
+        holder.btnLike.setOnClickListener(v -> {
+
+            if (!post.isLiked()) {
+
+                post.setLiked(true);
+                post.setLikes(post.getLikes() + 1);
+
+            } else {
+
+                post.setLiked(false);
+                post.setLikes(post.getLikes() - 1);
+
+            }
+
+            holder.tvLikes.setText("❤️ " + post.getLikes());
+
+        });
     }
-    //bla
+
+
 
     @Override
     public int getItemCount() {
