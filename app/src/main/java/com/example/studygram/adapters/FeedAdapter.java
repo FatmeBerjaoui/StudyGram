@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,6 +63,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         TextView tvUsername;
         TextView tvLikes;
 
+        ImageButton btnLike;
+        ImageButton btnSave;
+
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -70,6 +74,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvLikes = itemView.findViewById(R.id.tvLikes);
+            btnLike = itemView.findViewById(R.id.btnLike);
+            btnSave = itemView.findViewById(R.id.btnSave);
 
         }
 
