@@ -94,10 +94,6 @@ public class ForYouFragment extends Fragment {
 
         return binding.getRoot();
 
-        binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerViewPosts.setAdapter(adapter);
-        return binding.getRoot();
-
     }
 
     @Override
