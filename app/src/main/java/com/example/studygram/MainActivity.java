@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        setSupportActionBar(binding.toolbar);
+
 
         androidx.fragment.app.FragmentContainerView navHost =
                 findViewById(R.id.nav_host_fragment_content_main);
