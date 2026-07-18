@@ -7,6 +7,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.studygram.databinding.ActivitySettingsBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -36,7 +40,26 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(SettingsActivity.this, "xxxx", Toast.LENGTH_SHORT).show();
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (currentUser == null) {
+                    return;
+                }
+
+                String email = currentUser.getEmail();
+
+                FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            binding.tvMessage.setVisibility(View.VISIBLE);
+                            binding.tvMessage.setText("Reset-Mail wurde gesendet. Bitte Postfach prüfen.");
+                        } else {
+                            binding.tvMessage.setVisibility(View.VISIBLE);
+                            binding.tvMessage.setText("Fehler beim Senden der Reset-Mail");
+                        }
+                    }
+                });
             }
         });
 
