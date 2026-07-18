@@ -1,10 +1,12 @@
 package com.example.studygram;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.studygram.databinding.ActivitySettingsBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -21,7 +23,12 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(SettingsActivity.this, "xxxxx", Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signOut();
+
+                Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+
             }
         });
 
