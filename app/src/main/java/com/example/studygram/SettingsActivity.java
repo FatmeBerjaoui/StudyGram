@@ -103,7 +103,25 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(SettingsActivity.this, "xxxx", Toast.LENGTH_SHORT).show();
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (currentUser == null) {
+                    return;
+                }
+
+                currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            binding.tvMessage.setVisibility(View.VISIBLE);
+                            binding.tvMessage.setText("Account konnte nicht gelöscht werden");
+                        }
+                    }
+                });
             }
         });
     }
