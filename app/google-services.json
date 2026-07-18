@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1020052341068",
+    "project_id": "studygram-899a7",
+    "storage_bucket": "studygram-899a7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020052341068:android:f4091d6dcba6303af28fe9",
+        "android_client_info": {
+          "package_name": "com.example.studygram"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgXA-ypYNMxeEBZCX3YVXiz2CuEeB5PHs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
