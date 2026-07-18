@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 
 public class SettingsActivity extends AppCompatActivity {
@@ -26,7 +27,36 @@ public class SettingsActivity extends AppCompatActivity {
         binding.btnChangeUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String newUsername = binding.etNewUsername.getText().toString();
 
+                if (newUsername.isEmpty()) {
+                    binding.etNewUsername.setError("Bitte einen Username eingeben");
+                    return;
+                }
+
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (currentUser == null) {
+                    return;
+                }
+
+                UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(newUsername)
+                        .build();
+
+                currentUser.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            binding.tvMessage.setVisibility(View.VISIBLE);
+                            binding.tvMessage.setText("Username erfolgreich geändert");
+                        } else {
+                            binding.tvMessage.setVisibility(View.VISIBLE);
+                            binding.tvMessage.setText("Fehler beim Ändern des Usernames");
+                        }
+                    }
+                });
+            }
 
         });
 
