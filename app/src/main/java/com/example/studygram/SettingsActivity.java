@@ -6,10 +6,10 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.studygram.databinding.ActivitySettingsBinding;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class SettingsActivity extends AppCompatActivity {
@@ -27,13 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                FirebaseAuth.getInstance().signOut();
 
-                Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-
-            }
         });
 
         binding.btnResetPassword.setOnClickListener(new View.OnClickListener() {
@@ -66,9 +60,13 @@ public class SettingsActivity extends AppCompatActivity {
         binding.btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                    FirebaseAuth.getInstance().signOut();
 
-                Toast.makeText(SettingsActivity.this, "xxxx", Toast.LENGTH_SHORT).show();
-            }
+                    Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }
         });
 
         binding.btnDeleteAccount.setOnClickListener(new View.OnClickListener() {
