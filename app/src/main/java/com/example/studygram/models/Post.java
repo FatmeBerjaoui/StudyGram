@@ -5,9 +5,13 @@ public class Post {
     private String subject;
     private String description;
     private String username;
+    private String imageUrl;
+    private String userId;
     private int likes;
     private boolean liked = false;
     private boolean saved = false;
+
+
 
     public Post() { //leerer Konstruktor für Firebase
 
@@ -16,9 +20,11 @@ public class Post {
     public Post(String username, String title,String subject,String description, int likes) {
 
         this.username = username;
+        this.username = username;
         this.title = title;
         this.subject = subject;
         this.description = description;
+        this.imageUrl = imageUrl;
         this.likes = likes;
     }
     // Getter
@@ -33,11 +39,13 @@ public class Post {
     public String getDescription() {
         return description;
     }
-
+    public String getImageUrl() { return imageUrl; }
+    public String getUserId() { return userId; }
     public String getUsername() {
         return username;
     }
-
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public void setUserId(String userId) { this.userId = userId; }
     public int getLikes() {
         return likes;
     }
