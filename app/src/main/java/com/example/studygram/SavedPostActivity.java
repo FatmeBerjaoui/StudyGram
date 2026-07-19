@@ -15,7 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import java.util.ArrayList;
 import java.util.List;
-public class SavedPostActivity {
+public class SavedPostActivity extends AppCompatActivity {
     private ActivitySavedPostsBinding binding;
 
     @Override
