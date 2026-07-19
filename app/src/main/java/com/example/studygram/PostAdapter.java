@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.studygram.databinding.PostItemBinding;
 import java.util.List;
+import com.example.studygram.models.Post;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
