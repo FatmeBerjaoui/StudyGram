@@ -20,11 +20,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.studygram.databinding.FragmentAddPostBinding;
-private ArrayList<QuizQuestion> quizFragen;
-private QuizQuestionAdapter adapter;
 
 public class AddPostFragment extends Fragment {
-
+    private ArrayList<QuizQuestion> quizFragen;
+    private QuizQuestionAdapter adapter;
     private FragmentAddPostBinding binding;
 
     @Override
@@ -57,12 +56,12 @@ public class AddPostFragment extends Fragment {
                 "Sonstiges"
         };
 
-        ArrayAdapter<String> adapter =
+        ArrayAdapter<String> moduladapter =
                 new ArrayAdapter<>(requireContext(),
                         android.R.layout.simple_dropdown_item_1line,
                         Modul);
 
-        binding.actSubject.setAdapter(adapter);
+        binding.actSubject.setAdapter(moduladapter);
 
 
         quizFragen = new ArrayList<>(); //Quiz Fragen
@@ -94,10 +93,33 @@ public class AddPostFragment extends Fragment {
                     "Beitrag ist bereit zum Veröffentlichen!",
                     Toast.LENGTH_SHORT).show();
 
+        });
+        binding.btnAddQuestion.setOnClickListener(v -> {
 
+            String frage = binding.etQuestion.getText().toString().trim();
+            String antwort = binding.etAnswer.getText().toString().trim();
+
+            if (frage.isEmpty() || antwort.isEmpty()) {
+
+                Toast.makeText(getContext(),
+                        "Bitte Frage und Antwort eingeben.",
+                        Toast.LENGTH_SHORT).show();
+
+                return;
+            }
+
+            quizFragen.add(new QuizQuestion(frage, antwort));
+
+            adapter.notifyItemInserted(quizFragen.size() - 1);
+
+            binding.etQuestion.setText("");
+            binding.etAnswer.setText("");
+
+            Toast.makeText(getContext(),
+                    "Quizfrage hinzugefügt!",
+                    Toast.LENGTH_SHORT).show();
 
         });
-        binding.btnAddQuestion.setOnClickListener(v -> frageTypAuswaehlen());
         return binding.getRoot();
 
     }
@@ -115,35 +137,6 @@ public class AddPostFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-    private void frageTypAuswaehlen() {
-
-        String[] typen = {
-                "Multiple Choice",
-                "Kurzantwort"
-        };
-
-        AlertDialog.Builder builder =
-                new AlertDialog.Builder(requireContext());
-
-        builder.setTitle("Quizfrage hinzufügen");
-
-        builder.setItems(typen, (dialog, which) -> {
-
-            if (which == 0) {
-
-                zeigeMultipleChoiceDialog();
-
-            } else {
-
-                zeigeKurzantwortDialog();
-
-            }
-
-        });
-
-        builder.show();
-
     }
 
 }
