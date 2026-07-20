@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.studygram.databinding.FragmentAddPostBinding;
+private ArrayList<QuizQuestion> quizFragen;
+private QuizQuestionAdapter adapter;
 
 public class AddPostFragment extends Fragment {
 
@@ -58,6 +60,17 @@ public class AddPostFragment extends Fragment {
                         Modul);
 
         binding.actSubject.setAdapter(adapter);
+
+
+        quizFragen = new ArrayList<>(); //Quiz Fragen
+
+        adapter = new QuizQuestionAdapter(quizFragen);
+
+        binding.rvQuestions.setLayoutManager(
+                new LinearLayoutManager(getContext()));
+
+        binding.rvQuestions.setAdapter(adapter);
+
 
         binding.btnPublish.setOnClickListener(v -> {  //Publish Button
 
