@@ -56,12 +56,12 @@ public class AddPostFragment extends Fragment {
                 "Sonstiges"
         };
 
-        ArrayAdapter<String> moduladapter =
+        ArrayAdapter<String> modulAdapter =
                 new ArrayAdapter<>(requireContext(),
                         android.R.layout.simple_dropdown_item_1line,
                         Modul);
 
-        binding.actSubject.setAdapter(moduladapter);
+        binding.actSubject.setAdapter(modulAdapter);
 
 
         quizFragen = new ArrayList<>(); //Quiz Fragen
