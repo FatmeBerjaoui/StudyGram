@@ -39,6 +39,11 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
         holder.tvFrage.setText(frage.getFrage());
         holder.tvTyp.setText("Typ: " + frage.getTyp());
 
+        QuizQuestion frage = fragen.get(position);
+
+        holder.tvFrage.setText(frage.getFrage());
+        holder.tvTyp.setText("Antwort: " + frage.getAntwort());
+
     }
 
     @Override

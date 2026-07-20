@@ -94,9 +94,10 @@ public class AddPostFragment extends Fragment {
                     "Beitrag ist bereit zum Veröffentlichen!",
                     Toast.LENGTH_SHORT).show();
 
-            binding.btnAddQuestion.setOnClickListener(v -> frageTypAuswaehlen());
+
 
         });
+        binding.btnAddQuestion.setOnClickListener(v -> frageTypAuswaehlen());
         return binding.getRoot();
 
     }
@@ -112,37 +113,37 @@ public class AddPostFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        private void frageTypAuswaehlen() {
-
-            String[] typen = {
-                    "Multiple Choice",
-                    "Kurzantwort"
-            };
-
-            AlertDialog.Builder builder =
-                    new AlertDialog.Builder(requireContext());
-
-            builder.setTitle("Quizfrage hinzufügen");
-
-            builder.setItems(typen, (dialog, which) -> {
-
-                if (which == 0) {
-
-                    zeigeMultipleChoiceDialog();
-
-                } else {
-
-                    zeigeKurzantwortDialog();
-
-                }
-
-            });
-
-            builder.show();
-
-        }
         super.onDestroyView();
         binding = null;
+    }
+    private void frageTypAuswaehlen() {
+
+        String[] typen = {
+                "Multiple Choice",
+                "Kurzantwort"
+        };
+
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(requireContext());
+
+        builder.setTitle("Quizfrage hinzufügen");
+
+        builder.setItems(typen, (dialog, which) -> {
+
+            if (which == 0) {
+
+                zeigeMultipleChoiceDialog();
+
+            } else {
+
+                zeigeKurzantwortDialog();
+
+            }
+
+        });
+
+        builder.show();
+
     }
 
 }
