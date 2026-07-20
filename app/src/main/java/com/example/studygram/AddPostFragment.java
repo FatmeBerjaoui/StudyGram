@@ -21,7 +21,22 @@ public class AddPostFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentSecondBinding.inflate(inflater, container, false);
+        binding = FragmentAddPostBinding.inflate(inflater, container, false);
+        String[] modul = {
+                "Programming",
+                "Mathematics",
+                "Databases",
+                "Networks",
+                "Web Development",
+                "Other"
+        };
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(requireContext(),
+                        android.R.layout.simple_dropdown_item_1line,
+                        subjects);
+
+        binding.actSubject.setAdapter(adapter);
         return binding.getRoot();
 
     }
