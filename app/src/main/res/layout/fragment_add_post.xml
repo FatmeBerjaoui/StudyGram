@@ -71,14 +71,14 @@
             android:id="@+id/btnUpload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload File / Photo"
+            android:text="Foto/Datei hochladen"
             android:layout_marginTop="20dp"/>
 
         <Button
             android:id="@+id/btnAddQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Quiz Question"
+            android:text="Quizfrage hinzufügen"
             android:layout_marginTop="12dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -91,7 +91,7 @@
             android:id="@+id/btnPublish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Publish"
+            android:text="Veröffentlichen"
             android:layout_marginTop="20dp"/>
 
     </LinearLayout>
