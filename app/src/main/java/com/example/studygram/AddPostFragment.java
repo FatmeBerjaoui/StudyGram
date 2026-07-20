@@ -24,7 +24,7 @@ public class AddPostFragment extends Fragment {
     ) {
 
         binding = FragmentAddPostBinding.inflate(inflater, container, false);
-        String[] modul = {
+        String[] Modul = {
                 "Programmierung",
                 "Software Engineering",
                 "Datenbanken",
@@ -50,7 +50,7 @@ public class AddPostFragment extends Fragment {
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(requireContext(),
                         android.R.layout.simple_dropdown_item_1line,
-                        modul);
+                        Modul);
 
         binding.actSubject.setAdapter(adapter);
 
