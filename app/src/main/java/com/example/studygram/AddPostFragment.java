@@ -24,18 +24,32 @@ public class AddPostFragment extends Fragment {
 
         binding = FragmentAddPostBinding.inflate(inflater, container, false);
         String[] modul = {
-                "Programming",
-                "Mathematics",
-                "Databases",
-                "Networks",
-                "Web Development",
-                "Other"
+                "Programmierung",
+                "Software Engineering",
+                "Datenbanken",
+                "Webentwicklung",
+                "IT-Sicherheit",
+                "Betriebssysteme",
+                "Rechnernetze",
+                "Wirtschaftsinformatik",
+                "BWL",
+                "VWL",
+                "Rechnungswesen",
+                "Controlling",
+                "Marketing",
+                "Personalmanagement",
+                "Projektmanagement",
+                "Statistik",
+                "Mathematik",
+                "Business Intelligence",
+                "ERP-Systeme (SAP)",
+                "Sonstiges"
         };
 
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(requireContext(),
                         android.R.layout.simple_dropdown_item_1line,
-                        subjects);
+                        modul);
 
         binding.actSubject.setAdapter(adapter);
         return binding.getRoot();
