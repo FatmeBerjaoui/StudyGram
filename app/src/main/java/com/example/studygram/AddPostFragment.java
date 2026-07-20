@@ -13,7 +13,7 @@ import com.example.studygram.databinding.FragmentSecondBinding;
 
 public class AddPostFragment extends Fragment {
 
-    private FragmentSecondBinding binding;
+    private FragmentAddPostBinding binding;
 
     @Override
     public View onCreateView(
