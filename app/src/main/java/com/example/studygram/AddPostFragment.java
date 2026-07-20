@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -52,6 +53,27 @@ public class AddPostFragment extends Fragment {
                         modul);
 
         binding.actSubject.setAdapter(adapter);
+
+        binding.btnPublish.setOnClickListener(v -> {  //Publish Button
+
+            String titel = binding.etTitle.getText().toString().trim();
+            String modul = binding.actSubject.getText().toString().trim();
+            String beschreibung = binding.etDescription.getText().toString().trim();
+
+            if (titel.isEmpty() || modul.isEmpty() || beschreibung.isEmpty()) {
+
+                Toast.makeText(getContext(),
+                        "Bitte fülle alle Felder aus.",
+                        Toast.LENGTH_SHORT).show();
+
+                return;
+            }
+
+            Toast.makeText(getContext(),
+                    "Beitrag ist bereit zum Veröffentlichen!",
+                    Toast.LENGTH_SHORT).show();
+
+        });
         return binding.getRoot();
 
     }
