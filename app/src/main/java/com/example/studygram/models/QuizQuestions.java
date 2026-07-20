@@ -3,57 +3,17 @@ package com.example.studygram.models;
 public class QuizQuestion {
 
     private String frage;
-    private String typ;
+    private String antwort;
 
-    private String antwortA;
-    private String antwortB;
-    private String antwortC;
-    private String antwortD;
-
-    private String richtigeAntwort;
-
-    public QuizQuestion() {
-    }
-
-    public QuizQuestion(String frage, String typ,
-                        String antwortA, String antwortB,
-                        String antwortC, String antwortD,
-                        String richtigeAntwort) {
-
+    public QuizQuestion(String frage, String antwort) {
         this.frage = frage;
-        this.typ = typ;
-        this.antwortA = antwortA;
-        this.antwortB = antwortB;
-        this.antwortC = antwortC;
-        this.antwortD = antwortD;
-        this.richtigeAntwort = richtigeAntwort;
+        this.antwort = antwort;
     }
 
     public String getFrage() {
         return frage;
     }
 
-    public String getTyp() {
-        return typ;
+    public String getAntwort() {
+        return antwort;
     }
-
-    public String getAntwortA() {
-        return antwortA;
-    }
-
-    public String getAntwortB() {
-        return antwortB;
-    }
-
-    public String getAntwortC() {
-        return antwortC;
-    }
-
-    public String getAntwortD() {
-        return antwortD;
-    }
-
-    public String getRichtigeAntwort() {
-        return richtigeAntwort;
-    }
-}
