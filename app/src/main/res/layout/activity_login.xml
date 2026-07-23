@@ -107,11 +107,16 @@
         android:layout_height="wrap_content"
         android:text="Register"
         android:textSize="14sp"
-        android:textColor="#FFFFFF"
+        android:textColor="#FF3FB5"
         android:fontFamily="@font/poppins_italic"
         app:layout_constraintTop_toBottomOf="@id/RegisterQuestion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:shadowColor="#FF3FB5"
+        android:shadowRadius="4"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
