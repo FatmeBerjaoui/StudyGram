@@ -45,19 +45,6 @@ public class LoginActivity extends AppCompatActivity{
     private void loginUser() {
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();
-        if (task.isSuccessful()) {
-            FirebaseUser user = mAuth.getCurrentUser();
-
-            if (user != null && user.isEmailVerified()) {
-                goToMainActivity();
-            } else {
-                mAuth.signOut();
-                binding.tvError.setVisibility(View.VISIBLE);
-                binding.tvError.setText("Bitte bestätige zuerst deine Email-Adresse");
-            }
-        } else {
-
-        }
 
         if (email.isEmpty()) {
             binding.etEmail.setError("Email wird benötigt");
@@ -73,7 +60,15 @@ public class LoginActivity extends AppCompatActivity{
             public void onComplete(Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
-                    goToMainActivity();
+
+                    if (user != null && user.isEmailVerified()) {
+                        goToMainActivity();
+                    } else {
+                        mAuth.signOut();
+                        binding.tvError.setVisibility(View.VISIBLE);
+                        binding.tvError.setText("Bitte bestätige zuerst deine Email-Adresse");
+                    }
+
                 } else {
                     binding.tvError.setVisibility(View.VISIBLE);
                     Exception e = task.getException();
