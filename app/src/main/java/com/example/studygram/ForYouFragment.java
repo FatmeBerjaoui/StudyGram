@@ -1,7 +1,6 @@
 package com.example.studygram;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studygram.adapters.FeedAdapter;
 import com.example.studygram.models.Post;
@@ -17,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.studygram.databinding.FragmentForYouBinding;
 
@@ -39,20 +37,22 @@ public class ForYouFragment extends Fragment {
         posts = new ArrayList<>();
 
         posts.add(new Post(
+                "",
                 "Max Müller",
                 "Mathe",
                 "Analysis",
                 "Integralrechnung erklärt",
-                25
-        ));
+                "",
+                25));
 
         posts.add(new Post(
+                "",
                 "Sarah",
                 "Java",
                 "Programmierung",
                 "Klassen und Objekte",
-                16
-        ));
+                "",
+                16));
 
         filteredPosts = new ArrayList<>(posts);
         adapter = new FeedAdapter(filteredPosts);
