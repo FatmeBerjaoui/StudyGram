@@ -1,9 +1,12 @@
 package com.example.studygram;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studygram.adapters.FeedAdapter;
 import com.example.studygram.models.Post;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
@@ -16,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.studygram.databinding.FragmentForYouBinding;
 
@@ -25,6 +29,7 @@ public class ForYouFragment extends Fragment {
     private ArrayList<Post> posts;
     private ArrayList<Post> filteredPosts;
     private FeedAdapter adapter;
+    private FirebaseFirestore db;
 
     @Override
     public View onCreateView(
@@ -34,25 +39,8 @@ public class ForYouFragment extends Fragment {
     ) {
 
         binding = FragmentForYouBinding.inflate(inflater, container, false);
+        db = FirebaseFirestore.getInstance();
         posts = new ArrayList<>();
-
-        posts.add(new Post(
-                "",
-                "Max Müller",
-                "Mathe",
-                "Analysis",
-                "Integralrechnung erklärt",
-                "",
-                25));
-
-        posts.add(new Post(
-                "",
-                "Sarah",
-                "Java",
-                "Programmierung",
-                "Klassen und Objekte",
-                "",
-                16));
 
         filteredPosts = new ArrayList<>(posts);
         adapter = new FeedAdapter(filteredPosts);
@@ -60,6 +48,26 @@ public class ForYouFragment extends Fragment {
 
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewPosts.setAdapter(adapter);
+
+        db.collection("posts")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+
+                    posts.clear();
+
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+
+                        Post post = document.toObject(Post.class);
+                        posts.add(post);
+
+                    }
+
+                    adapter.updateList(posts);
+
+                })
+                .addOnFailureListener(e -> {
+
+                });
 
 // HIER kommt der TextWatcher
 
