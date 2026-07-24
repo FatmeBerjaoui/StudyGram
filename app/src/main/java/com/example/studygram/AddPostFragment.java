@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+import com.google.firebase.firestore.FirebaseFirestore;
 import androidx.appcompat.app.AlertDialog;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ public class AddPostFragment extends Fragment {
     private ArrayList<QuizQuestion> quizFragen;
     private QuizQuestionAdapter adapter;
     private FragmentAddPostBinding binding;
+    private FirebaseFirestore db;
 
     @Override
     public View onCreateView(
@@ -33,6 +35,7 @@ public class AddPostFragment extends Fragment {
     ) {
 
         binding = FragmentAddPostBinding.inflate(inflater, container, false);
+        db = FirebaseFirestore.getInstance();
         String[] Modul = {
                 "Programmierung",
                 "Software Engineering",
