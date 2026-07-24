@@ -11,6 +11,11 @@ import androidx.appcompat.app.AlertDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.HashMap;
 import java.util.Map;
+import android.net.Uri;
+import android.content.Intent;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -30,6 +35,20 @@ public class AddPostFragment extends Fragment {
     private QuizQuestionAdapter adapter;
     private FragmentAddPostBinding binding;
     private FirebaseFirestore db;
+
+    private Uri imageUri;
+
+    private final ActivityResultLauncher<String> imagePicker =
+            registerForActivityResult(
+                    new ActivityResultContracts.GetContent(),
+                    uri -> {
+                        if (uri != null) {
+                            imageUri = uri;
+
+                            binding.imgPreview.setVisibility(View.VISIBLE);
+                            binding.imgPreview.setImageURI(uri);
+                        }
+                    });
 
     @Override
     public View onCreateView(
@@ -79,6 +98,10 @@ public class AddPostFragment extends Fragment {
 
         binding.rvQuestions.setAdapter(adapter);
 
+        binding.btnUpload.setOnClickListener(v -> {  //öffnet Galerie
+            imagePicker.launch("image/*");
+        });
+
 
         binding.btnPublish.setOnClickListener(v -> {  //Publish Button
 
@@ -86,10 +109,13 @@ public class AddPostFragment extends Fragment {
             String modul = binding.actSubject.getText().toString().trim();
             String beschreibung = binding.etDescription.getText().toString().trim();
 
-            if (titel.isEmpty() || modul.isEmpty() || beschreibung.isEmpty()) {
+            if (titel.isEmpty()
+                    || modul.isEmpty()
+                    || beschreibung.isEmpty()
+                    || imageUri == null) {
 
                 Toast.makeText(getContext(),
-                        "Bitte fülle alle Felder aus.",
+                        "Bitte alle Felder ausfüllen und ein Bild auswählen.",
                         Toast.LENGTH_SHORT).show();
 
                 return;
