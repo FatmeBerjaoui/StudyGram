@@ -25,6 +25,7 @@ public class SavedPostActivity extends AppCompatActivity {
 
         binding = ActivitySavedPostsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        loadSavedPosts();
     }
     private void loadSavedPosts() {
         List<Post> savedPostsList = new ArrayList<>();
