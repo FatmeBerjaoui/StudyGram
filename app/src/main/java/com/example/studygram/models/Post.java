@@ -8,6 +8,7 @@ public class Post {
     private int likes;
     private boolean liked = false;
     private boolean saved = false;
+    private String bildUrl;
 
     public Post() { //leerer Konstruktor für Firebase
 
@@ -73,5 +74,13 @@ public class Post {
     public void setSaved(boolean saved) {
         this.saved = saved;
     }
+    public String getBildUrl() {
+        return bildUrl;
+    }
+
+    public void setBildUrl(String bildUrl) {
+        this.bildUrl = bildUrl;
+    }
 }
+
 

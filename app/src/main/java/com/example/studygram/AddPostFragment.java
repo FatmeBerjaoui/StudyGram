@@ -13,6 +13,19 @@ import java.util.HashMap;
 import java.util.Map;
 import android.net.Uri;
 import android.content.Intent;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -193,5 +206,7 @@ public class AddPostFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+    private void uploadImageToCloudinary(Uri imageUri) {
 
+    }
 }
