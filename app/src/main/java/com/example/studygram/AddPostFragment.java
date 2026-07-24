@@ -100,7 +100,7 @@ public class AddPostFragment extends Fragment {
             post.put("titel", titel);
             post.put("modul", modul);
             post.put("beschreibung", beschreibung);
-            post.put("autor", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            post.put("username", FirebaseAuth.getInstance().getCurrentUser().getEmail());
             post.put("likes", 0);
             post.put("quizFragen", quizFragen);
 

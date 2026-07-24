@@ -49,6 +49,26 @@ public class ForYouFragment extends Fragment {
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewPosts.setAdapter(adapter);
 
+        db.collection("posts")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+
+                    posts.clear();
+
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+
+                        Post post = document.toObject(Post.class);
+                        posts.add(post);
+
+                    }
+
+                    adapter.updateList(posts);
+
+                })
+                .addOnFailureListener(e -> {
+
+                });
+
 // HIER kommt der TextWatcher
 
         binding.etSearch.addTextChangedListener(new TextWatcher() {
