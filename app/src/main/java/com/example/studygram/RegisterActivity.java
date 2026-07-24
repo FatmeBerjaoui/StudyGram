@@ -45,6 +45,8 @@ public class RegisterActivity  extends AppCompatActivity {
         });
     }
 
+    // Prüft die Eingaben und legt bei Erfolg einen neuen Firebase-Account an
+    private void registerUser() {
     private void registerUser() {
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();
@@ -83,11 +85,15 @@ public class RegisterActivity  extends AppCompatActivity {
                     Exception e = task.getException();
 
                     if (e instanceof FirebaseAuthUserCollisionException) {
+                        // Diese Email ist bereits als Account registriert
                         binding.tvError.setText("Dieser Account existiert bereits");
                     } else if (e instanceof FirebaseAuthWeakPasswordException) {
+                        // Firebase selbst stuft das Passwort als zu unsicher ein
                         binding.tvError.setText("Passwort ist zu schwach");
+
                     } else if (e instanceof FirebaseAuthInvalidCredentialsException) {
                         binding.tvError.setText("Ungültiges Email-Format");
+
                     } else {
                         binding.tvError.setText("Registrierung fehlgeschlagen");
                     }
