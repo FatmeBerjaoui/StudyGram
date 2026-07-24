@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.studygram.SecondFragment"
+        android:name="com.example.studygram.AddPostFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_add_post">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
