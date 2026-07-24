@@ -29,6 +29,7 @@ public class ForYouFragment extends Fragment {
     private ArrayList<Post> posts;
     private ArrayList<Post> filteredPosts;
     private FeedAdapter adapter;
+    private FirebaseFirestore db;
 
     @Override
     public View onCreateView(
@@ -38,23 +39,8 @@ public class ForYouFragment extends Fragment {
     ) {
 
         binding = FragmentForYouBinding.inflate(inflater, container, false);
+        db = FirebaseFirestore.getInstance();
         posts = new ArrayList<>();
-
-        posts.add(new Post(
-                "Max Müller",
-                "Mathe",
-                "Analysis",
-                "Integralrechnung erklärt",
-                25
-        ));
-
-        posts.add(new Post(
-                "Sarah",
-                "Java",
-                "Programmierung",
-                "Klassen und Objekte",
-                16
-        ));
 
         filteredPosts = new ArrayList<>(posts);
         adapter = new FeedAdapter(filteredPosts);
