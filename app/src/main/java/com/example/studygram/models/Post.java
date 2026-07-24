@@ -11,14 +11,14 @@ public class Post {
     private boolean liked = false;
     private boolean saved = false;
     private String bildUrl;
-
+    private String postId;
 
 
     public Post() { //leerer Konstruktor für Firebase
 
     }
 
-    public Post(String userId,String username, String title,String subject,String description,String imageUrl, int likes) {
+    public Post(String userId, String username, String title, String subject, String description, String imageUrl, int likes) {
         this.userId = userId;
         this.username = username;
         this.title = title;
@@ -28,6 +28,12 @@ public class Post {
         this.likes = likes;
     }
     // Getter
+
+
+    public String getPostId() {
+        return postId;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -39,19 +45,35 @@ public class Post {
     public String getDescription() {
         return description;
     }
-    public String getImageUrl() { return imageUrl; }
-    public String getUserId() { return userId; }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
     public String getUsername() {
         return username;
     }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
-    public void setUserId(String userId) { this.userId = userId; }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public int getLikes() {
         return likes;
     }
+
     public boolean isLiked() {
         return liked;
     }
+
     public boolean isSaved() {
         return saved;
     }
@@ -68,6 +90,7 @@ public class Post {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -75,18 +98,25 @@ public class Post {
     public void setLikes(int likes) {
         this.likes = likes;
     }
+
     public void setLiked(boolean liked) {
         this.liked = liked;
     }
+
     public void setSaved(boolean saved) {
         this.saved = saved;
     }
+
     public String getBildUrl() {
         return bildUrl;
     }
 
     public void setBildUrl(String bildUrl) {
         this.bildUrl = bildUrl;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 }
 
