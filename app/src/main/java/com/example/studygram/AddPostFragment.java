@@ -95,9 +95,40 @@ public class AddPostFragment extends Fragment {
                 return;
             }
 
-            Toast.makeText(getContext(),
-                    "Beitrag ist bereit zum Veröffentlichen!",
-                    Toast.LENGTH_SHORT).show();
+            Map<String, Object> post = new HashMap<>();
+
+            post.put("titel", titel);
+            post.put("modul", modul);
+            post.put("beschreibung", beschreibung);
+            post.put("autor", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            post.put("likes", 0);
+            post.put("quizFragen", quizFragen);
+
+            db.collection("posts")
+                    .add(post)
+                    .addOnSuccessListener(documentReference -> {
+
+                        Toast.makeText(getContext(),
+                                "Beitrag erfolgreich veröffentlicht!",
+                                Toast.LENGTH_SHORT).show();
+
+                        binding.etTitle.setText("");
+                        binding.actSubject.setText("");
+                        binding.etDescription.setText("");
+                        binding.etQuestion.setText("");
+                        binding.etAnswer.setText("");
+
+                        quizFragen.clear();
+                        adapter.notifyDataSetChanged();
+
+                    })
+                    .addOnFailureListener(e -> {
+
+                        Toast.makeText(getContext(),
+                                "Fehler: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+
+                    });
 
         });
         binding.btnAddQuestion.setOnClickListener(v -> {
