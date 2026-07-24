@@ -47,7 +47,6 @@ public class RegisterActivity  extends AppCompatActivity {
 
     // Prüft die Eingaben und legt bei Erfolg einen neuen Firebase-Account an
     private void registerUser() {
-    private void registerUser() {
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();
         String confirmPassword = binding.etConfirmPassword.getText().toString();
