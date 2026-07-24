@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import com.google.firebase.firestore.FirebaseFirestore;
 import androidx.appcompat.app.AlertDialog;
+import com.google.firebase.auth.FirebaseAuth;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
