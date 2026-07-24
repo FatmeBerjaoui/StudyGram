@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studygram.adapters.FeedAdapter;
 import com.example.studygram.models.Post;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
