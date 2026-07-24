@@ -15,6 +15,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.example.studygram.models.Post;
+import com.example.studygram.adapters.FeedAdapter;
 
 public class
 ProfileActivity extends AppCompatActivity {
@@ -62,7 +63,7 @@ ProfileActivity extends AppCompatActivity {
     // Test-Liste, um zu prüfen ob der RecyclerView funktioniert
     private void setupRecyclerView() {
         List<Post> postList= new ArrayList<>();
-        PostAdapter adapter = new PostAdapter(postList);
+        FeedAdapter adapter = new FeedAdapter(postList);
         binding.rvPosts.setLayoutManager(new LinearLayoutManager(this));
         binding.rvPosts.setAdapter(adapter);
 
