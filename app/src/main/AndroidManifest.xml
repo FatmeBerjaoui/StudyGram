@@ -31,6 +31,9 @@
         </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".SavedPostActivity" />
     </application>
 
 </manifest>
