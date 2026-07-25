@@ -99,7 +99,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
         });
 
-        binding.tvBack.setOnClickListener(new View.OnClickListener() {
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
