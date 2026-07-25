@@ -29,7 +29,7 @@ public class SavedPostActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         loadSavedPosts();
 
-        binding.tvBack.setOnClickListener(new View.OnClickListener() {
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
