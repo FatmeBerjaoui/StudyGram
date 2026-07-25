@@ -99,6 +99,12 @@ public class SettingsActivity extends AppCompatActivity {
                 }
         });
 
+        binding.tvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         binding.btnDeleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
