@@ -65,4 +65,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <TextView
+        android:id="@+id/tvEmptyMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Noch keine gespeicherten Posts – stöber im Feed und speichere, was dir gefällt!"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

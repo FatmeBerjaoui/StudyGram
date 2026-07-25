@@ -58,6 +58,7 @@ public class SavedPostActivity extends AppCompatActivity {
                 .whereEqualTo("userId", currentUserId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
                     @Override
                     public void onComplete(Task<QuerySnapshot> savedTask) {
                         if (savedTask.isSuccessful()) {
@@ -68,11 +69,18 @@ public class SavedPostActivity extends AppCompatActivity {
                                 postIds.add(postId);
                             }
 
+                            if (postIds.isEmpty()) {
+                                binding.tvEmptyMessage.setVisibility(View.VISIBLE);
+                            } else {
+                                binding.tvEmptyMessage.setVisibility(View.GONE);
+                            }
+
                             loadPostsByIds(postIds, savedPostsList, adapter);
                         } else {
                             Toast.makeText(SavedPostActivity.this, "Gespeicherte Posts konnten nicht geladen werden", Toast.LENGTH_SHORT).show();
                         }
                     }
+
                 });
     }
 
