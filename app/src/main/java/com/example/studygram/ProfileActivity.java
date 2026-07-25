@@ -37,10 +37,16 @@ ProfileActivity extends AppCompatActivity {
 
         // Username aus der Email ableiten (Teil vor dem @-Zeichen) und anzeigen
         if (user != null) {
-            String email = user.getEmail();
-            int atIndex = email.indexOf("@");
-            String username = email.substring(0, atIndex);
-            binding.tvUsername.setText(username);
+            String displayName = user.getDisplayName();
+
+            if (displayName != null && !displayName.isEmpty()) {
+                binding.tvUsername.setText(displayName);
+            } else {
+                String email = user.getEmail();
+                int atIndex = email.indexOf("@");
+                String username = email.substring(0, atIndex);
+                binding.tvUsername.setText(username);
+            }
         }
 
 // Klick auf "Saved Posts" führt zum Saved-Posts-Screen
