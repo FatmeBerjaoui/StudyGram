@@ -27,13 +27,14 @@ ProfileActivity extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
-
+        // View Binding verbindet das Layout mit dem Code
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
+        // Username aus der Email ableiten (Teil vor dem @-Zeichen) und anzeigen
         if (user != null) {
             String email = user.getEmail();
             int atIndex = email.indexOf("@");
@@ -41,7 +42,7 @@ ProfileActivity extends AppCompatActivity {
             binding.tvUsername.setText(username);
         }
 
-
+// Klick auf "Saved Posts" führt zum Saved-Posts-Screen
         binding.btnSavedPosts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
