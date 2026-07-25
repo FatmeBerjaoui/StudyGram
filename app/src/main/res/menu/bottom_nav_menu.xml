@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/FirstFragment"
-        android:icon="@android:drawable/ic_menu_myplaces"
+        android:icon="@drawable/home_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
         android:title="For You" />
 
     <item
