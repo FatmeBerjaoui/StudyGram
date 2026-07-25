@@ -83,7 +83,9 @@ ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (Post post : task.getResult().toObjects(Post.class)) {
+                            for (var document : task.getResult()) {
+                                Post post = document.toObject(Post.class);
+                                post.setPostId(document.getId());
                                 postList.add(post);
                             }
                             adapter.notifyDataSetChanged();

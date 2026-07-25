@@ -75,6 +75,7 @@ public class SavedPostActivity extends AppCompatActivity {
                 public void onComplete(Task<com.google.firebase.firestore.DocumentSnapshot> postTask) {
                     if (postTask.isSuccessful() && postTask.getResult().exists()) {
                         Post post = postTask.getResult().toObject(Post.class);
+                        post.setPostId(postTask.getResult().getId());
                         savedPostsList.add(post);
                         adapter.notifyDataSetChanged();
                     }
