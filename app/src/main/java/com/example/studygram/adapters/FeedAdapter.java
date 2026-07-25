@@ -37,6 +37,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
                 .inflate(R.layout.item_post, parent, false); //für jeden Post soll die XML-Vorlage benutzt werden
 
         return new PostViewHolder(view);
+
     }
 
     @Override
@@ -44,38 +45,31 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
 
         Post post = postList.get(position);
 
-        holder.tvTitle.setText(post.getTitle()); //"schreibe den Titel der Posts in die Textview"
+        holder.tvTitle.setText(post.getTitle());
         holder.tvSubject.setText(post.getSubject());
         holder.tvDescription.setText(post.getDescription());
         holder.tvUsername.setText(post.getUsername());
         holder.tvLikes.setText("❤️ " + post.getLikes());
 
         holder.btnLike.setOnClickListener(v -> {
-
             if (!post.isLiked()) {
-
                 post.setLiked(true);
                 post.setLikes(post.getLikes() + 1);
-
             } else {
-
                 post.setLiked(false);
                 post.setLikes(post.getLikes() - 1);
-
             }
-
             holder.tvLikes.setText("❤️ " + post.getLikes());
-
         });
 
         holder.btnSave.setOnClickListener(v -> {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            if (post.isSaved()) {
+            if (!post.isSaved()) {
+                post.setSaved(true);
+                holder.btnSave.setAlpha(1f);
 
-                post.setSaved(false);
-                holder.btnSave.setAlpha(0.5f);
                 Map<String, Object> savedPost = new HashMap<>();
                 savedPost.put("userId", currentUserId);
                 savedPost.put("postId", post.getPostId());
@@ -99,7 +93,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
             }
         });
 
-
+        holder.itemView.setOnClickListener(v -> {
+            PostOptionsHelper.showOptionsIfOwnPost(post, v.getContext(), postList, this);
+        });
 
         if (post.isSaved()) {
             holder.btnSave.setAlpha(1f);
@@ -107,8 +103,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
             holder.btnSave.setAlpha(0.5f);
         }
     }
-
-
 
 
     @Override
@@ -145,4 +139,5 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         postList = neueListe;
         notifyDataSetChanged();
     }
+
 }
