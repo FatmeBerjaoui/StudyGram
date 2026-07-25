@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studygram.R;
 import com.example.studygram.models.Post;
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder> {
@@ -66,20 +69,36 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         });
 
         holder.btnSave.setOnClickListener(v -> {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
             if (post.isSaved()) {
 
                 post.setSaved(false);
                 holder.btnSave.setAlpha(0.5f);
+                Map<String, Object> savedPost = new HashMap<>();
+                savedPost.put("userId", currentUserId);
+                savedPost.put("postId", post.getPostId());
+                db.collection("savedPosts").add(savedPost);
 
             } else {
+                post.setSaved(false);
+                holder.btnSave.setAlpha(0.5f);
 
-                post.setSaved(true);
-                holder.btnSave.setAlpha(1f);
-
+                db.collection("savedPosts")
+                        .whereEqualTo("userId", currentUserId)
+                        .whereEqualTo("postId", post.getPostId())
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                for (var doc : task.getResult()) {
+                                    doc.getReference().delete();
+                                }
+                            }
+                        });
             }
-
         });
+
 
 
         if (post.isSaved()) {
