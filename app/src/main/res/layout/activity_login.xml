@@ -55,7 +55,7 @@
         android:id="@+id/etPassword"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:hint="Password"
+        android:hint=" Password"
         android:fontFamily ="@font/poppins_regular"
         android:textColorHint="#FFFFFF"
         android:inputType="textPassword"
@@ -90,6 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"
         android:textStyle="bold"
+        app:backgroundTint="#FF3FB5"
         android:background="@drawable/rounded_button"
         android:fontFamily ="@font/poppins_black"
         android:textSize="18sp"/>
