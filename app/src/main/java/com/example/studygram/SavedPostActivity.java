@@ -2,6 +2,8 @@ package com.example.studygram;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.studygram.databinding.ActivitySavedPostsBinding;
+
+import android.view.View;
 import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.studygram.adapters.FeedAdapter;
@@ -26,7 +28,15 @@ public class SavedPostActivity extends AppCompatActivity {
         binding = ActivitySavedPostsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         loadSavedPosts();
+
+        binding.tvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
     private void loadSavedPosts() {
         List<Post> savedPostsList = new ArrayList<>();
         FeedAdapter adapter = new FeedAdapter(savedPostsList);
