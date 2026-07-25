@@ -90,6 +90,7 @@ ProfileActivity extends AppCompatActivity {
                                 postList.add(post);
                             }
                             adapter.notifyDataSetChanged();
+                            binding.tvPosts.setText("Posts (" + postList.size() + ")");
                         } else {
                             Toast.makeText(ProfileActivity.this, "Posts konnten nicht geladen werden", Toast.LENGTH_SHORT).show();
                         }
