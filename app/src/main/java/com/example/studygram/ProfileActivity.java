@@ -1,5 +1,6 @@
 package com.example.studygram;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -46,16 +47,16 @@ ProfileActivity extends AppCompatActivity {
         binding.btnSavedPosts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Saved Posts Screen kommt später
-                Toast.makeText(ProfileActivity.this, "Saved Posts kommt bald", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProfileActivity.this, SavedPostActivity.class);
+                startActivity(intent);
             }
         });
 
         binding.btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Settings Screen kommt später
-                Toast.makeText(ProfileActivity.this, "Settings kommt bald", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProfileActivity.this, SettingsActivity.class);
+                startActivity(intent);
             }
         });
         setupRecyclerView();
