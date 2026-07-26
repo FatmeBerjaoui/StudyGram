@@ -146,13 +146,18 @@ public class AddPostFragment extends Fragment {
 
                 return;
             }
+            uploadImageToCloudinary(imageUri);
+
+            String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String username = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
             Map<String, Object> post = new HashMap<>();
-
-            post.put("titel", titel);
-            post.put("modul", modul);
-            post.put("beschreibung", beschreibung);
-            post.put("username", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            post.put("userId", currentUserId);
+            post.put("username", username);
+            post.put("title", titel);
+            post.put("subject", modul);
+            post.put("description", beschreibung);
+            post.put("imageUrl", "");
             post.put("likes", 0);
             post.put("quizFragen", quizFragen);
 
