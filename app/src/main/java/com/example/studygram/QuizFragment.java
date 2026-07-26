@@ -1,6 +1,16 @@
 package com.example.studygram;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
+import com.example.studygram.databinding.FragmentQuizBinding;
 
 public class QuizFragment extends Fragment {
 
@@ -15,52 +25,40 @@ public class QuizFragment extends Fragment {
 
         binding.btnLikedQuiz.setOnClickListener(v -> {
 
-            Toast.makeText(getContext(),
-                    "Liked Quiz",
-                    Toast.LENGTH_SHORT).show();
+            Bundle bundle = new Bundle();
+            bundle.putString("quizType", "liked");
+
+            NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_QuizFragment_to_QuizGameFragment, bundle);
 
         });
 
         binding.btnSavedQuiz.setOnClickListener(v -> {
 
-            Toast.makeText(getContext(),
-                    "Saved Quiz",
-                    Toast.LENGTH_SHORT).show();
+            Bundle bundle = new Bundle();
+            bundle.putString("quizType", "saved");
+
+            NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_QuizFragment_to_QuizGameFragment, bundle);
 
         });
 
         binding.btnWrongQuiz.setOnClickListener(v -> {
 
-            Toast.makeText(getContext(),
-                    "Wrong Questions Quiz",
-                    Toast.LENGTH_SHORT).show();
+            Bundle bundle = new Bundle();
+            bundle.putString("quizType", "wrong");
+
+            NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_QuizFragment_to_QuizGameFragment, bundle);
 
         });
 
         return binding.getRoot();
     }
-    Bundle bundle = new Bundle();
-    bundle.putString("quizType", "liked");
-
-NavHostFragment.findNavController(this)
-        .navigate(R.id.action_quizFragment_to_quizGameFragment, bundle);
-
-    Bundle bundle = new Bundle();
-bundle.putString("quizType", "saved");
-
-NavHostFragment.findNavController(this)
-        .navigate(R.id.action_quizFragment_to_quizGameFragment, bundle);
-
-    Bundle bundle = new Bundle();
-bundle.putString("quizType", "wrong");
-
-NavHostFragment.findNavController(this)
-        .navigate(R.id.action_quizFragment_to_quizGameFragment, bundle);
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
 }
