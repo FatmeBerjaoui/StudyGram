@@ -35,6 +35,23 @@ public class QuizFragment extends Fragment {
 
         return binding.getRoot();
     }
+    Bundle bundle = new Bundle();
+    bundle.putString("quizType", "liked");
+
+NavHostFragment.findNavController(this)
+        .navigate(R.id.action_quizFragment_to_quizGameFragment, bundle);
+
+    Bundle bundle = new Bundle();
+bundle.putString("quizType", "saved");
+
+NavHostFragment.findNavController(this)
+        .navigate(R.id.action_quizFragment_to_quizGameFragment, bundle);
+
+    Bundle bundle = new Bundle();
+bundle.putString("quizType", "wrong");
+
+NavHostFragment.findNavController(this)
+        .navigate(R.id.action_quizFragment_to_quizGameFragment, bundle);
 
     @Override
     public void onDestroyView() {
