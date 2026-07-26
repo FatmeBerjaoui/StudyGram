@@ -220,7 +220,7 @@ public class AddPostFragment extends Fragment {
                                         binding.etQuestion.setText("");
                                         binding.etAnswer.setText("");
 
-                                        this.imageUri = null;
+                                        AddPostFragment.this.imageUri = null;
                                         imageUrl = "";
                                         binding.imgPreview.setImageDrawable(null);
                                         binding.imgPreview.setVisibility(View.GONE);
