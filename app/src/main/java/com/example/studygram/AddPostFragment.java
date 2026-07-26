@@ -221,5 +221,46 @@ public class AddPostFragment extends Fragment {
     }
     private void uploadImageToCloudinary(Uri imageUri) {
 
+        MediaManager.get().upload(imageUri)
+                .unsigned("studygram_upload")
+                .callback(new UploadCallback() {
+
+                    @Override
+                    public void onStart(String requestId) {
+                    }
+
+                    @Override
+                    public void onProgress(String requestId, long bytes, long totalBytes) {
+                    }
+
+                    @Override
+                    public void onSuccess(String requestId, Map resultData) {
+
+                        imageUrl = resultData.get("secure_url").toString();
+
+                        requireActivity().runOnUiThread(() ->
+                                Toast.makeText(getContext(),
+                                        "Bild erfolgreich hochgeladen!",
+                                        Toast.LENGTH_SHORT).show());
+
+                    }
+
+                    @Override
+                    public void onError(String requestId, com.cloudinary.android.callback.ErrorInfo error) {
+
+                        requireActivity().runOnUiThread(() ->
+                                Toast.makeText(getContext(),
+                                        "Upload fehlgeschlagen",
+                                        Toast.LENGTH_LONG).show());
+
+                    }
+
+                    @Override
+                    public void onReschedule(String requestId, com.cloudinary.android.callback.ErrorInfo error) {
+
+                    }
+                })
+                .dispatch();
+
     }
 }

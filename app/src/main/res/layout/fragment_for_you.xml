@@ -7,16 +7,6 @@
     android:orientation="vertical"
     android:background="#121212">
 
-    <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="200dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/study_gram2"/>
 
     <EditText
         android:id="@+id/etSearch"

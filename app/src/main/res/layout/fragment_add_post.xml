@@ -17,7 +17,7 @@
             android:layout_width="200dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:src="@drawable/study_gram"
+            android:src="@drawable/study_gram2"
             android:scaleType="fitCenter"/>
 
         <TextView
