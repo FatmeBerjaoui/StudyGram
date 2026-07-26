@@ -36,7 +36,7 @@ public class Post {
     public String getDescription() {
         return description;
     }
-    public String getimageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
     public String getUsername() {
@@ -66,7 +66,7 @@ public class Post {
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setBildUrl(String imageUrl) {this.imageUrl = imageUrl;}
+    public void setImageUrl(String imageUrl) {this.imageUrl = imageUrl;}
     public void setUsername(String username) {
         this.username = username;
     }

@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import com.bumptech.glide.Glide;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -89,8 +91,20 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
             }
 
             holder.tvLikes.setText("❤️ " + post.getLikes());
+            if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) {
+
+                Glide.with(holder.itemView.getContext())
+                        .load(post.getImageUrl())
+                        .into(holder.imgPost);
+
+            } else {
+
+                holder.imgPost.setVisibility(View.GONE);
+
+            }
 
         });
+
 
         holder.btnSave.setOnClickListener(v -> {
 
@@ -147,6 +161,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
 
         ImageButton btnLike;
         ImageButton btnSave;
+        ImageView imgPost;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -158,6 +173,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
             tvLikes = itemView.findViewById(R.id.tvLikes);
             btnLike = itemView.findViewById(R.id.btnLike);
             btnSave = itemView.findViewById(R.id.btnSave);
+            imgPost = itemView.findViewById(R.id.imgPost);
 
         }
 
