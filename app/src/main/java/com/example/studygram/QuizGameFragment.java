@@ -72,5 +72,16 @@ public class QuizGameFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+    private void ladeLikedQuiz() {
+
+    }
+
+    private void ladeSavedQuiz() {
+
+    }
+
+    private void ladeWrongQuiz() {
+
+    }
 
 }
