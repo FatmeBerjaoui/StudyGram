@@ -94,10 +94,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
 
         holder.btnSave.setOnClickListener(v -> {
 
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-            String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
             if (!post.isSaved()) {
 
                 post.setSaved(true);

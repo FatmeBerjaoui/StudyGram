@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.studygram.databinding.FragmentForYouBinding;
 
@@ -41,10 +40,7 @@ public class ForYouFragment extends Fragment {
         binding = FragmentForYouBinding.inflate(inflater, container, false);
         db = FirebaseFirestore.getInstance();
         posts = new ArrayList<>();
-
-        filteredPosts = new ArrayList<>(posts);
-        adapter = new FeedAdapter(filteredPosts);
-
+        adapter = new FeedAdapter(posts);
 
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewPosts.setAdapter(adapter);
