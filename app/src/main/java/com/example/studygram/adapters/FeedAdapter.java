@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
+import com.google.firebase.firestore.FieldValue;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,6 +70,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
                     }
 
                 });
+        db.collection("likedPosts")
+                .whereEqualTo("userId", currentUserId)
+                .whereEqualTo("postId", post.getPostId())
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+
+                    post.setLiked(!queryDocumentSnapshots.isEmpty());
+
+                });
 
         holder.tvTitle.setText(post.getTitle()); //"schreibe den Titel der Posts in die Textview"
         holder.tvSubject.setText(post.getSubject());
@@ -81,27 +91,44 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
             if (!post.isLiked()) {
 
                 post.setLiked(true);
+
+                db.collection("posts")
+                        .document(post.getPostId())
+                        .update("likes", FieldValue.increment(1));
+
+                Map<String, Object> likedPost = new HashMap<>();
+                likedPost.put("userId", currentUserId);
+                likedPost.put("postId", post.getPostId());
+
+                db.collection("likedPosts").add(likedPost);
+
                 post.setLikes(post.getLikes() + 1);
 
             } else {
 
                 post.setLiked(false);
+
+                db.collection("posts")
+                        .document(post.getPostId())
+                        .update("likes", FieldValue.increment(-1));
+
+                db.collection("likedPosts")
+                        .whereEqualTo("userId", currentUserId)
+                        .whereEqualTo("postId", post.getPostId())
+                        .get()
+                        .addOnSuccessListener(queryDocumentSnapshots -> {
+
+                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                                doc.getReference().delete();
+                            }
+
+                        });
+
                 post.setLikes(post.getLikes() - 1);
 
             }
 
             holder.tvLikes.setText("❤️ " + post.getLikes());
-            if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) {
-
-                Glide.with(holder.itemView.getContext())
-                        .load(post.getImageUrl())
-                        .into(holder.imgPost);
-
-            } else {
-
-                holder.imgPost.setVisibility(View.GONE);
-
-            }
 
         });
 
