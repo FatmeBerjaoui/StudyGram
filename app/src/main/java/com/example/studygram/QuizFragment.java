@@ -1,5 +1,7 @@
 package com.example.studygram;
 
+import androidx.fragment.app.Fragment;
+
 public class QuizFragment extends Fragment {
 
     private FragmentQuizBinding binding;
