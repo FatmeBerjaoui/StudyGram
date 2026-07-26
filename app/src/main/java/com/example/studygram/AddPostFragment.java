@@ -30,6 +30,9 @@ import java.io.InputStream;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
+import com.cloudinary.android.MediaManager;
+import com.cloudinary.android.callback.UploadCallback;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.studygram.adapters.QuizQuestionAdapter;
@@ -48,8 +51,9 @@ public class AddPostFragment extends Fragment {
     private QuizQuestionAdapter adapter;
     private FragmentAddPostBinding binding;
     private FirebaseFirestore db;
-
     private Uri imageUri;
+    private String imageUrl = "";
+
 
     private final ActivityResultLauncher<String> imagePicker =
             registerForActivityResult(
@@ -70,6 +74,15 @@ public class AddPostFragment extends Fragment {
     ) {
 
         binding = FragmentAddPostBinding.inflate(inflater, container, false);
+        try {
+            MediaManager.get();
+        } catch (Exception e) {
+
+            Map<String, String> config = new HashMap<>();
+            config.put("cloud_name", "tsxii2y0");
+
+            MediaManager.init(requireContext(), config);
+        }
         db = FirebaseFirestore.getInstance();
         String[] Modul = {
                 "Programmierung",
