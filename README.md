@@ -1,5 +1,5 @@
 # StudyGram
 
 Erstellt von:
-Fatme Berjaoui
+Fatme Berjaoui,
 Sarah Tayem

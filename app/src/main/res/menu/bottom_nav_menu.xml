@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/FirstFragment"
+        android:icon="@drawable/home_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+        android:title="For You" />
+
+    <item
+        android:id="@+id/SecondFragment"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="Add Post" />
+
+    <item
+        android:id="@+id/profileAction"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Profile" />
+</menu>
