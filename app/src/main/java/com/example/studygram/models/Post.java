@@ -24,6 +24,7 @@ public class Post {
         this.likes = likes;
     }
     // Getter
+    public String getPostId() {return postId;}
     public String getTitle() {
         return title;
     }
@@ -35,7 +36,9 @@ public class Post {
     public String getDescription() {
         return description;
     }
-
+    public String getBildUrl() {
+        return bildUrl;
+    }
     public String getUsername() {
         return username;
     }
@@ -51,6 +54,7 @@ public class Post {
     }
 
     // Setter
+    public void setPostId(String postId) {this.postId = postId;}
     public void setTitle(String title) {
         this.title = title;
     }
@@ -62,10 +66,10 @@ public class Post {
     public void setDescription(String description) {
         this.description = description;
     }
+    public void setBildUrl(String bildUrl) {this.bildUrl = bildUrl;}
     public void setUsername(String username) {
         this.username = username;
     }
-
     public void setLikes(int likes) {
         this.likes = likes;
     }
@@ -75,13 +79,12 @@ public class Post {
     public void setSaved(boolean saved) {
         this.saved = saved;
     }
-    public String getBildUrl() {
-        return bildUrl;
-    }
 
-    public void setBildUrl(String bildUrl) {
-        this.bildUrl = bildUrl;
-    }
+
+
+
+
+
 }
 
 

@@ -58,6 +58,7 @@ public class ForYouFragment extends Fragment {
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
 
                         Post post = document.toObject(Post.class);
+                        post.setPostId(document.getId());
                         posts.add(post);
 
                     }

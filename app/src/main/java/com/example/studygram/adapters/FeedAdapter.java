@@ -13,6 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.studygram.R;
 import com.example.studygram.models.Post;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder> {
@@ -41,6 +48,26 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
 
         Post post = postList.get(position);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db.collection("savedPosts")
+                .whereEqualTo("userId", currentUserId)
+                .whereEqualTo("postId", post.getPostId())
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        post.setSaved(true);
+                        holder.btnSave.setAlpha(1f);
+                    } else {
+                        post.setSaved(false);
+                        holder.btnSave.setAlpha(0.5f);
+                    }
+
+                });
+
         holder.tvTitle.setText(post.getTitle()); //"schreibe den Titel der Posts in die Textview"
         holder.tvSubject.setText(post.getSubject());
         holder.tvDescription.setText(post.getDescription());
@@ -67,28 +94,45 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
 
         holder.btnSave.setOnClickListener(v -> {
 
-            if (post.isSaved()) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            if (!post.isSaved()) {
+
+                post.setSaved(true);
+                holder.btnSave.setAlpha(1f);
+
+                Map<String, Object> savedPost = new HashMap<>();
+                savedPost.put("userId", currentUserId);
+                savedPost.put("postId", post.getPostId());
+
+                db.collection("savedPosts")
+                        .add(savedPost);
+
+            } else {
 
                 post.setSaved(false);
                 holder.btnSave.setAlpha(0.5f);
 
-            } else {
+                db.collection("savedPosts")
+                        .whereEqualTo("userId", currentUserId)
+                        .whereEqualTo("postId", post.getPostId())
+                        .get()
+                        .addOnSuccessListener(queryDocumentSnapshots -> {
 
-                post.setSaved(true);
-                holder.btnSave.setAlpha(1f);
+                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                                doc.getReference().delete();
+                            }
+
+                        });
 
             }
 
         });
 
 
-        if (post.isSaved()) {
-            holder.btnSave.setAlpha(1f);
-        } else {
-            holder.btnSave.setAlpha(0.5f);
-        }
     }
-
 
 
 
