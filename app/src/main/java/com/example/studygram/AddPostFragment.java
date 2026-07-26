@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import com.google.firebase.firestore.FirebaseFirestore;
-import androidx.appcompat.app.AlertDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.HashMap;
 import java.util.Map;
@@ -131,46 +130,8 @@ public class AddPostFragment extends Fragment {
 
                 return;
             }
-            uploadImageToCloudinary(imageUri);
+            uploadImageToCloudinary(imageUri, titel, modul, beschreibung);
 
-            String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            String username = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-            Map<String, Object> post = new HashMap<>();
-            post.put("userId", currentUserId);
-            post.put("username", username);
-            post.put("title", titel);
-            post.put("subject", modul);
-            post.put("description", beschreibung);
-            post.put("imageUrl", "");
-            post.put("likes", 0);
-            post.put("quizFragen", quizFragen);
-
-            db.collection("posts")
-                    .add(post)
-                    .addOnSuccessListener(documentReference -> {
-
-                        Toast.makeText(getContext(),
-                                "Beitrag erfolgreich veröffentlicht!",
-                                Toast.LENGTH_SHORT).show();
-
-                        binding.etTitle.setText("");
-                        binding.actSubject.setText("");
-                        binding.etDescription.setText("");
-                        binding.etQuestion.setText("");
-                        binding.etAnswer.setText("");
-
-                        quizFragen.clear();
-                        adapter.notifyDataSetChanged();
-
-                    })
-                    .addOnFailureListener(e -> {
-
-                        Toast.makeText(getContext(),
-                                "Fehler: " + e.getMessage(),
-                                Toast.LENGTH_LONG).show();
-
-                    });
 
         });
         binding.btnAddQuestion.setOnClickListener(v -> {
@@ -209,9 +170,12 @@ public class AddPostFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-    private void uploadImageToCloudinary(Uri imageUri) {
+    private void uploadImageToCloudinary(Uri selectedImageUri,
+                                         String titel,
+                                         String modul,
+                                         String beschreibung) {
 
-        MediaManager.get().upload(imageUri)
+        MediaManager.get().upload(selectedImageUri)
                 .unsigned("studygram_upload")
                 .callback(new UploadCallback() {
 
@@ -228,11 +192,54 @@ public class AddPostFragment extends Fragment {
 
                         imageUrl = resultData.get("secure_url").toString();
 
-                        requireActivity().runOnUiThread(() ->
-                                Toast.makeText(getContext(),
-                                        "Bild erfolgreich hochgeladen!",
-                                        Toast.LENGTH_SHORT).show());
+                        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        String username = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
+                        Map<String, Object> post = new HashMap<>();
+                        post.put("userId", currentUserId);
+                        post.put("username", username);
+                        post.put("title", titel);
+                        post.put("subject", modul);
+                        post.put("description", beschreibung);
+                        post.put("imageUrl", imageUrl);
+                        post.put("likes", 0);
+                        post.put("quizFragen", quizFragen);
+
+                        db.collection("posts")
+                                .add(post)
+                                .addOnSuccessListener(documentReference -> {
+
+                                    requireActivity().runOnUiThread(() -> {
+
+                                        Toast.makeText(getContext(),
+                                                "Beitrag erfolgreich veröffentlicht!",
+                                                Toast.LENGTH_SHORT).show();
+
+                                        binding.etTitle.setText("");
+                                        binding.actSubject.setText("");
+                                        binding.etDescription.setText("");
+                                        binding.etQuestion.setText("");
+                                        binding.etAnswer.setText("");
+
+                                        this.imageUri = null;
+                                        imageUrl = "";
+                                        binding.imgPreview.setImageDrawable(null);
+                                        binding.imgPreview.setVisibility(View.GONE);
+
+                                        quizFragen.clear();
+                                        adapter.notifyDataSetChanged();
+
+                                    });
+
+                                })
+                                .addOnFailureListener(e -> {
+
+                                    requireActivity().runOnUiThread(() ->
+                                            Toast.makeText(getContext(),
+                                                    "Fehler: " + e.getMessage(),
+                                                    Toast.LENGTH_LONG).show());
+
+                                });
                     }
 
                     @Override
