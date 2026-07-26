@@ -9,7 +9,7 @@ public class Post {
     private int likes;
     private boolean liked = false;
     private boolean saved = false;
-    private String bildUrl;
+    private String imageUrl;
 
     public Post() { //leerer Konstruktor für Firebase
 
@@ -36,8 +36,8 @@ public class Post {
     public String getDescription() {
         return description;
     }
-    public String getBildUrl() {
-        return bildUrl;
+    public String getimageUrl() {
+        return imageUrl;
     }
     public String getUsername() {
         return username;
@@ -66,7 +66,7 @@ public class Post {
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setBildUrl(String bildUrl) {this.bildUrl = bildUrl;}
+    public void setBildUrl(String imageUrl) {this.imageUrl = imageUrl;}
     public void setUsername(String username) {
         this.username = username;
     }
@@ -79,9 +79,6 @@ public class Post {
     public void setSaved(boolean saved) {
         this.saved = saved;
     }
-
-
-
 
 
 
