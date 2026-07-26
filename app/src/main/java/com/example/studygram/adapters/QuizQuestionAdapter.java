@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studygram.R;
-import com.example.studygram.models.QuizQuestion;
+import com.example.studygram.QuizQuestion;
 
 import java.util.ArrayList;
 

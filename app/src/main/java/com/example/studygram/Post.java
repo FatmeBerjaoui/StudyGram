@@ -1,4 +1,4 @@
-package com.example.studygram.models;
+package com.example.studygram;
 
 public class Post {
     private String postId;

@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import com.bumptech.glide.Glide;
+
 import com.google.firebase.firestore.FieldValue;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studygram.R;
-import com.example.studygram.models.Post;
+import com.example.studygram.Post;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;

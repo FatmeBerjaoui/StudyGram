@@ -1,5 +1,20 @@
 package com.example.studygram;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+
+import com.example.studygram.databinding.FragmentQuizGameBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class QuizGameFragment extends Fragment {
 
     private FragmentQuizGameBinding binding;
@@ -18,6 +33,7 @@ public class QuizGameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentQuizGameBinding.inflate(inflater, container, false);
 
         db = FirebaseFirestore.getInstance();
 
@@ -46,7 +62,6 @@ public class QuizGameFragment extends Fragment {
                     new ArrayList<>(quizFragen.subList(0, 10));
 
         }
-        binding = FragmentQuizGameBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
     }

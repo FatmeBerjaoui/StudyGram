@@ -25,4 +25,22 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/QuizFragment"
+        android:name="com.example.studygram.QuizFragment"
+        android:label="Quiz"
+        tools:layout="@layout/fragment_quiz">
+
+        <action
+            android:id="@+id/action_QuizFragment_to_QuizGameFragment"
+            app:destination="@id/QuizGameFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/QuizGameFragment"
+        android:name="com.example.studygram.QuizGameFragment"
+        android:label="Quiz Game"
+        tools:layout="@layout/fragment_quiz_game"/>
 </navigation>

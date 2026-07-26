@@ -21,7 +21,6 @@ import com.cloudinary.android.callback.UploadCallback;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.studygram.adapters.QuizQuestionAdapter;
-import com.example.studygram.models.QuizQuestion;
 
 import java.util.ArrayList;
 

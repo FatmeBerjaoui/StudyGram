@@ -1,3 +1,5 @@
+package com.example.studygram;
+
 public class QuizFragment extends Fragment {
 
     private FragmentQuizBinding binding;
