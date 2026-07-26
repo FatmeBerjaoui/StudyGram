@@ -1,6 +1,7 @@
 package com.example.studygram.models;
 
 public class Post {
+    private String postId;
     private String title;
     private String subject;
     private String description;
