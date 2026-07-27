@@ -32,13 +32,6 @@ ProfileActivity extends AppCompatActivity {
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.cardBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
@@ -73,6 +66,13 @@ ProfileActivity extends AppCompatActivity {
             }
         });
         setupRecyclerView();
+
+        binding.cardBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
     // Test-Liste, um zu prüfen ob der RecyclerView funktioniert
