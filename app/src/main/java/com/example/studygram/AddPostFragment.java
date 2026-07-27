@@ -104,10 +104,10 @@ public class AddPostFragment extends Fragment {
 
         adapter = new QuizQuestionAdapter(quizFragen);
 
-        binding.rvQuestions.setLayoutManager(
-                new LinearLayoutManager(getContext()));
+        //binding.rvQuestions.setLayoutManager(
+               // new LinearLayoutManager(getContext()));
 
-        binding.rvQuestions.setAdapter(adapter);
+        //binding.rvQuestions.setAdapter(adapter);
 
         binding.btnUpload.setOnClickListener(v -> {  //öffnet Galerie
             imagePicker.launch("image/*");
