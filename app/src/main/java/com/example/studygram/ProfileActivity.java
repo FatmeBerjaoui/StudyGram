@@ -15,7 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.example.studygram.models.Post;
+import com.example.studygram.Post;
 import com.example.studygram.adapters.FeedAdapter;
 
 public class
@@ -98,7 +98,7 @@ ProfileActivity extends AppCompatActivity {
                             }
                             adapter.notifyDataSetChanged();
                             binding.tvPosts.setText("Posts (" + postList.size() + ")");
-                            
+
                             if (postList.isEmpty()) {
                                 binding.tvEmptyMessage.setVisibility(View.VISIBLE);
                             } else {
