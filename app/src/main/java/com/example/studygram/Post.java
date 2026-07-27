@@ -2,6 +2,7 @@ package com.example.studygram;
 
 public class Post {
     private String postId;
+    private String userId;
     private String title;
     private String subject;
     private String description;
@@ -25,6 +26,9 @@ public class Post {
     }
     // Getter
     public String getPostId() {return postId;}
+    public String getUserId() {
+        return userId;
+    }
     public String getTitle() {
         return title;
     }
@@ -55,6 +59,9 @@ public class Post {
 
     // Setter
     public void setPostId(String postId) {this.postId = postId;}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
     public void setTitle(String title) {
         this.title = title;
     }
