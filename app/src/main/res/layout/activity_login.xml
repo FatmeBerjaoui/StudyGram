@@ -7,32 +7,29 @@
     android:background="#121212"
  >
 
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/study_gram2_cropped"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="80dp"/>
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to"
-        android:textSize="28sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="125dp"
-        android:textColor="#FF3FB5"
-        android:fontFamily ="@font/poppins_semi_bold_italic"/>
-
-    <TextView
-        android:id="@+id/tvStudyGram"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="StudyGram"
-        android:textSize="36sp"
-        android:textColor="#FF3FB5"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/poppins_semi_bold_italic"
-        android:textStyle="italic"/>
+        android:text="Welcome to"
+        android:textColor="#FF3FB5"
+        android:textSize="37sp"
+        app:layout_constraintEnd_toEndOf="@id/ivLogo"
+        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintStart_toStartOf="@id/ivLogo"
+        app:layout_constraintTop_toTopOf="@id/ivLogo" />
 
     <EditText
         android:padding="16dp"
@@ -44,10 +41,10 @@
         android:textColorHint="#FFFFFF"
         android:inputType="textEmailAddress"
         android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/tvStudyGram"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_input"
         android:textSize="16sp"/>
 
