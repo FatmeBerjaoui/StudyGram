@@ -98,11 +98,13 @@ ProfileActivity extends AppCompatActivity {
                             }
                             adapter.notifyDataSetChanged();
                             binding.tvPosts.setText("Posts (" + postList.size() + ")");
-                        } if (postList.isEmpty()) {
-                            binding.tvEmptyMessage.setVisibility(View.VISIBLE);
+                            
+                            if (postList.isEmpty()) {
+                                binding.tvEmptyMessage.setVisibility(View.VISIBLE);
+                            } else {
+                                binding.tvEmptyMessage.setVisibility(View.GONE);
+                            }
                         } else {
-                            binding.tvEmptyMessage.setVisibility(View.GONE);
-                        }else {
                             Toast.makeText(ProfileActivity.this, "Posts konnten nicht geladen werden", Toast.LENGTH_SHORT).show();
                         }
                     }
