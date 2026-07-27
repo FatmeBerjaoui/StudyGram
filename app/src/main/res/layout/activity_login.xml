@@ -7,66 +7,64 @@
     android:background="#121212"
  >
 
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/study_gram2_cropped"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="80dp"/>
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to"
-        android:textSize="28sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="125dp"
-        android:textColor="#FF3FB5"
-        android:fontFamily ="@font/poppins_semi_bold_italic"/>
-
-    <TextView
-        android:id="@+id/tvStudyGram"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="StudyGram"
-        android:textSize="36sp"
-        android:textColor="#FF3FB5"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/poppins_semi_bold_italic"
-        android:textStyle="italic"/>
+        android:text="Welcome to"
+        android:textColor="#FF3FB5"
+        android:textSize="37sp"
+        app:layout_constraintEnd_toEndOf="@id/ivLogo"
+        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintStart_toStartOf="@id/ivLogo"
+        app:layout_constraintTop_toTopOf="@id/ivLogo" />
 
     <EditText
-        android:padding="16dp"
         android:id="@+id/etEmail"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:hint="Email"
-        android:fontFamily ="@font/poppins_regular"
-        android:textColorHint="#FFFFFF"
-        android:inputType="textEmailAddress"
-        android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/tvStudyGram"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/rounded_input"
-        android:textSize="16sp"/>
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="16dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="0dp"
         android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_input"
+        android:fontFamily="@font/poppins_regular"
         android:hint=" Password"
-        android:fontFamily ="@font/poppins_regular"
-        android:textColorHint="#FFFFFF"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/etEmail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_input"
+        android:textColorHint="#FFFFFF"
         android:textSize="16sp"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etEmail" />
 
     <TextView
         android:id="@+id/tvError"
@@ -84,16 +82,17 @@
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="55dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/poppins_black"
         android:text="LOGIN"
-        app:layout_constraintTop_toBottomOf="@id/tvError"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:backgroundTint="#FF3FB5"
-        android:background="@drawable/rounded_button"
-        android:fontFamily ="@font/poppins_black"
-        android:textSize="18sp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvError" />
 
     <TextView
         android:id="@+id/RegisterQuestion"
