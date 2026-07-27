@@ -6,9 +6,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#121212">
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="22dp"
+        app:cardBackgroundColor="#1E1E1E"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="40dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/outline_arrow_back_24"
+            android:background="@android:color/transparent"
+            app:tint="#FF3FB5"
+            android:padding="12dp" />
+
+    </com.google.android.material.card.MaterialCardView>
+
     <!-- Überschrift -->
     <TextView
         android:id="@+id/Profile"
+        app:layout_constraintTop_toBottomOf="@id/cardBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Profile"
