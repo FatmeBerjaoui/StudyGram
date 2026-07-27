@@ -74,6 +74,86 @@ public class QuizGameFragment extends Fragment {
     }
     private void ladeLikedQuiz() {
 
+        db.collection("likedPosts")
+                .whereEqualTo("userId", currentUser.getUid())
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+
+                    for (var likedDoc : queryDocumentSnapshots.getDocuments()) {
+
+                        String postId = likedDoc.getString("postId");
+
+                        if (postId == null) continue;
+
+                        db.collection("posts")
+                                .document(postId)
+                                .get()
+                                .addOnSuccessListener(postDocument -> {
+
+                                    if (!postDocument.exists())
+                                        return;
+
+                                    ArrayList<?> fragen =
+                                            (ArrayList<?>) postDocument.get("quizFragen");
+
+                                    if (fragen != null) {
+
+                                        for (Object obj : fragen) {
+
+                                            if (obj instanceof java.util.Map) {
+
+                                                java.util.Map<?, ?> map =
+                                                        (java.util.Map<?, ?>) obj;
+
+                                                String frage =
+                                                        (String) map.get("frage");
+
+                                                String antwort =
+                                                        (String) map.get("antwort");
+
+                                                quizFragen.add(
+                                                        new QuizQuestion(frage, antwort)
+                                                );
+                                            }
+                                        }
+                                    }
+
+                                    if (!quizFragen.isEmpty()) {
+
+                                        Collections.shuffle(quizFragen);
+
+                                        if (quizFragen.size() > 10) {
+
+                                            quizFragen = new ArrayList<>(
+                                                    quizFragen.subList(0, 10)
+                                            );
+                                        }
+
+                                        zeigeFrage();
+                                    }
+
+                                });
+
+                    }
+
+                });
+
+    }
+    private void zeigeFrage() {
+
+        if (aktuelleFrage >= quizFragen.size()) {
+
+            binding.tvQuestion.setText("Quiz beendet!");
+
+            return;
+        }
+
+        QuizQuestion frage = quizFragen.get(aktuelleFrage);
+
+        binding.tvQuestion.setText(frage.getFrage());
+
+        binding.etAnswer.setText("");
+
     }
 
     private void ladeSavedQuiz() {
