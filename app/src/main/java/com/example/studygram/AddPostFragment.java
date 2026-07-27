@@ -96,6 +96,8 @@ public class AddPostFragment extends Fragment {
                         Modul);
 
         binding.actSubject.setAdapter(modulAdapter);
+        binding.actSubject.setOnClickListener(v ->
+                binding.actSubject.showDropDown());
 
 
         quizFragen = new ArrayList<>(); //Quiz Fragen
