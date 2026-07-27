@@ -30,6 +30,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/btnPublish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Veröffentlichen"
+                android:layout_marginTop="20dp"/>
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTitle"
                 android:layout_width="match_parent"
@@ -122,12 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:nestedScrollingEnabled="false"/>
-        <Button
-            android:id="@+id/btnPublish"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Veröffentlichen"
-            android:layout_marginTop="20dp"/>
+
 
     </LinearLayout>
 
