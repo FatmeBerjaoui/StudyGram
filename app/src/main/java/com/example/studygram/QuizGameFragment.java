@@ -74,24 +74,29 @@ public class QuizGameFragment extends Fragment {
     }
     private void ladeLikedQuiz() {
 
+        quizFragen.clear();
+
         db.collection("likedPosts")
                 .whereEqualTo("userId", currentUser.getUid())
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
 
-                    for (var likedDoc : queryDocumentSnapshots.getDocuments()) {
+                    for (DocumentSnapshot likedDoc : queryDocumentSnapshots.getDocuments()) {
 
                         String postId = likedDoc.getString("postId");
 
-                        if (postId == null) continue;
+                        if (postId == null) {
+                            continue;
+                        }
 
                         db.collection("posts")
                                 .document(postId)
                                 .get()
                                 .addOnSuccessListener(postDocument -> {
 
-                                    if (!postDocument.exists())
+                                    if (!postDocument.exists()) {
                                         return;
+                                    }
 
                                     ArrayList<?> fragen =
                                             (ArrayList<?>) postDocument.get("quizFragen");
@@ -130,6 +135,7 @@ public class QuizGameFragment extends Fragment {
                                         }
 
                                         zeigeFrage();
+
                                     }
 
                                 });
@@ -143,12 +149,29 @@ public class QuizGameFragment extends Fragment {
 
         if (aktuelleFrage >= quizFragen.size()) {
 
-            binding.tvQuestion.setText("Quiz beendet!");
+            binding.tvQuestion.setText(
+                    "Quiz beendet!\n\n"
+                            + "Punkte: "
+                            + richtigeAntworten
+                            + " / "
+                            + quizFragen.size());
+
+            binding.tvQuestionNumber.setText("");
+
+            binding.btnNext.setEnabled(false);
+
+            binding.etAnswer.setEnabled(false);
 
             return;
         }
 
         QuizQuestion frage = quizFragen.get(aktuelleFrage);
+
+        binding.tvQuestionNumber.setText(
+                "Frage "
+                        + (aktuelleFrage + 1)
+                        + " von "
+                        + quizFragen.size());
 
         binding.tvQuestion.setText(frage.getFrage());
 
