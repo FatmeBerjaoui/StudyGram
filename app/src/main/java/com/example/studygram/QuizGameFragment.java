@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.google.firebase.firestore.DocumentSnapshot;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -268,6 +269,10 @@ public class QuizGameFragment extends Fragment {
     }
 
     private void ladeWrongQuiz() {
+
+        Toast.makeText(getContext(),
+                "Wrong Quiz folgt noch.",
+                Toast.LENGTH_SHORT).show();
 
     }
 
