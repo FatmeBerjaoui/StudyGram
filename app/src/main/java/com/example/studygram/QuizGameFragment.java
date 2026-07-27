@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import androidx.fragment.app.Fragment;
 
@@ -54,6 +55,27 @@ public class QuizGameFragment extends Fragment {
             ladeWrongQuiz();
 
         }
+        binding.btnNext.setOnClickListener(v -> {
+
+            if (quizFragen.isEmpty()) {
+                return;
+            }
+
+            String eingabe = binding.etAnswer.getText().toString().trim();
+
+            QuizQuestion frage = quizFragen.get(aktuelleFrage);
+
+            if (eingabe.equalsIgnoreCase(frage.getAntwort())) {
+
+                richtigeAntworten++;
+
+            }
+
+            aktuelleFrage++;
+
+            zeigeFrage();
+
+        });
         Collections.shuffle(quizFragen);
 
         if (quizFragen.size() > 10) {
