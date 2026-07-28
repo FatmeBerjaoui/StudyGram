@@ -187,17 +187,28 @@ public class QuizGameFragment extends Fragment {
 
         if (aktuelleFrage >= quizFragen.size()) {
 
+            long dauerMillis = System.currentTimeMillis() - startZeit;
+
+            long sekunden = dauerMillis / 1000;
+            long minuten = sekunden / 60;
+            sekunden = sekunden % 60;
+
+            int falscheAntworten = quizFragen.size() - richtigeAntworten;
+
+            int score = (int) (((double) richtigeAntworten / quizFragen.size()) * 100);
+
             binding.tvQuestion.setText(
-                    "Quiz beendet!\n\n"
-                            + "Punkte: "
-                            + richtigeAntworten
-                            + " / "
-                            + quizFragen.size());
+                    "🎉 Quiz beendet!\n\n" +
+                            "Fragen: " + quizFragen.size() + "\n\n" +
+                            "Richtig: " + richtigeAntworten + "\n" +
+                            "Falsch: " + falscheAntworten + "\n\n" +
+                            "Score: " + score + "%\n\n" +
+                            "Dauer: " + String.format("%02d:%02d", minuten, sekunden)
+            );
 
             binding.tvQuestionNumber.setText("");
 
             binding.btnNext.setEnabled(false);
-
             binding.etAnswer.setEnabled(false);
 
             return;
