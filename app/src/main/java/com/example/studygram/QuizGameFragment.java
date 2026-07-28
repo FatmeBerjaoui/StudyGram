@@ -70,6 +70,17 @@ public class QuizGameFragment extends Fragment {
 
                 richtigeAntworten++;
 
+                Toast.makeText(getContext(),
+                        "✅ Bravo! Die Antwort ist richtig.",
+                        Toast.LENGTH_SHORT).show();
+
+            } else {
+
+                Toast.makeText(getContext(),
+                        "❌ Falsch.\nRichtige Antwort: "
+                                + frage.getAntwort(),
+                        Toast.LENGTH_LONG).show();
+
             }
 
             aktuelleFrage++;
