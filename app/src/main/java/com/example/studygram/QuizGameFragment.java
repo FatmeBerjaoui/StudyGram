@@ -28,7 +28,7 @@ public class QuizGameFragment extends Fragment {
     private int aktuelleFrage = 0;
     private int richtigeAntworten = 0;
     private FirebaseFirestore db;
-
+    private long startZeit;
     private FirebaseUser currentUser;
 
     private String quizType;
@@ -171,6 +171,7 @@ public class QuizGameFragment extends Fragment {
                                             );
                                         }
 
+                                        startZeit = System.currentTimeMillis();
                                         zeigeFrage();
 
                                     }
@@ -278,8 +279,8 @@ public class QuizGameFragment extends Fragment {
                                             );
                                         }
 
+                                        startZeit = System.currentTimeMillis();
                                         zeigeFrage();
-
                                     }
 
                                 });
