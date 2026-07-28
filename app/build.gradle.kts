@@ -6,11 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.studygram"
-    compileSdk {
-        version = release(35) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.studygram"
