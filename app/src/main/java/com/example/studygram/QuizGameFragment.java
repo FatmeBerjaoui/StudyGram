@@ -304,9 +304,58 @@ public class QuizGameFragment extends Fragment {
 
     private void ladeWrongQuiz() {
 
-        Toast.makeText(getContext(),
-                "Wrong Quiz folgt noch.",
-                Toast.LENGTH_SHORT).show();
+        quizFragen.clear();
+
+        db.collection("wrongQuestions")
+                .whereEqualTo("userId", currentUser.getUid())
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+
+                    for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+
+                        String frage = document.getString("frage");
+                        String antwort = document.getString("antwort");
+
+                        if (frage != null && antwort != null) {
+
+                            quizFragen.add(new QuizQuestion(frage, antwort));
+
+                        }
+
+                    }
+
+                    if (!quizFragen.isEmpty()) {
+
+                        Collections.shuffle(quizFragen);
+
+                        if (quizFragen.size() > 10) {
+
+                            quizFragen = new ArrayList<>(
+                                    quizFragen.subList(0, 10)
+                            );
+
+                        }
+
+                        startZeit = System.currentTimeMillis();
+
+                        zeigeFrage();
+
+                    } else {
+
+                        Toast.makeText(getContext(),
+                                "Keine falsch beantworteten Fragen vorhanden.",
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+
+                })
+                .addOnFailureListener(e ->
+
+                        Toast.makeText(getContext(),
+                                "Fehler beim Laden des Quiz.",
+                                Toast.LENGTH_SHORT).show()
+
+                );
 
     }
 
