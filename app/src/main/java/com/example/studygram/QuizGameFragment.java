@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.google.firebase.firestore.DocumentSnapshot;
 import android.widget.Toast;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.fragment.app.Fragment;
 
@@ -80,6 +82,15 @@ public class QuizGameFragment extends Fragment {
                         "❌ Falsch.\nRichtige Antwort: "
                                 + frage.getAntwort(),
                         Toast.LENGTH_LONG).show();
+
+                Map<String, Object> wrongQuestion = new HashMap<>();
+
+                wrongQuestion.put("userId", currentUser.getUid());
+                wrongQuestion.put("frage", frage.getFrage());
+                wrongQuestion.put("antwort", frage.getAntwort());
+
+                db.collection("wrongQuestions")
+                        .add(wrongQuestion);
 
             }
 
