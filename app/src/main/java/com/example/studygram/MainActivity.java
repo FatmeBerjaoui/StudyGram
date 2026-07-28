@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.profileAction) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(intent);
-                return true;
+                return false; // Wichtig: false zurückgeben, damit der Fokus auf dem aktuellen Tab bleibt
             } else {
                 return NavigationUI.onNavDestinationSelected(item, navController);
             }

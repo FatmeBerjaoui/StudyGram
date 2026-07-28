@@ -18,8 +18,8 @@
 
         <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/outline_arrow_back_24"
             android:background="@android:color/transparent"
             app:tint="#FF3FB5"
