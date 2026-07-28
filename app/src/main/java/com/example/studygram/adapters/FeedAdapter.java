@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FieldValue;
 
 import androidx.annotation.NonNull;
@@ -85,6 +86,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         holder.tvDescription.setText(post.getDescription());
         holder.tvUsername.setText(post.getUsername());
         holder.tvLikes.setText("❤️ " + post.getLikes());
+
+        if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(post.getImageUrl())
+                    .into(holder.imgPost);
+            holder.imgPost.setVisibility(View.VISIBLE);
+        } else {
+            holder.imgPost.setVisibility(View.GONE);
+        }
 
         holder.btnLike.setOnClickListener(v -> {
 

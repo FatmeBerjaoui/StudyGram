@@ -92,12 +92,6 @@
             android:visibility="gone"/>
 
 
-        <Button
-            android:id="@+id/btnAddQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Quizfrage hinzufügen"
-            android:layout_marginTop="12dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -124,6 +118,13 @@
                 android:textColor="@android:color/white"
                 android:hint="Richtige Antwort"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnAddQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quizfrage hinzufügen"
+            android:layout_marginTop="12dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvQuestions"
