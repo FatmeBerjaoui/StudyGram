@@ -178,6 +178,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
 
         });
 
+        holder.itemView.setOnClickListener(v -> {
+            PostOptionsHelper.showOptionsIfOwnPost(post, holder.itemView.getContext(), postList, this);
+        });
 
     }
 
