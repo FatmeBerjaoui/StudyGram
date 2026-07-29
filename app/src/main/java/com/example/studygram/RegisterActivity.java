@@ -22,11 +22,10 @@ public class RegisterActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // View Binding verbindet das Layout mit dem Code
+        // View Binding
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // "Login"-Link unterstreichen
         binding.tvLogin.setPaintFlags(binding.tvLogin.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         // Firebase Auth Instanz holen
@@ -60,37 +59,36 @@ public class RegisterActivity  extends AppCompatActivity {
         // Eingaben prüfen, bevor wir zu Firebase schicken
 
 
-        // Prüfung auf leeres E-Mail-Feld
+
         if (email.isEmpty()) {
             binding.etEmail.setError("Email wird benötigt");
             return;
         }
 
 
-        // Prüfung auf leeres Passwort-Feld
         if (password.isEmpty()) {
             binding.etPassword.setError("Passwort wird benötigt");
             return;
         }
 
-        // Prüfung der Mindestlänge des Passworts (Vorgabe durch Firebase)
+
         if (password.length() < 6) {
             binding.etPassword.setError("Passwort muss mindestens 6 Zeichen haben");
             return;
         }
 
-        // Vergleich von Passwort und Bestätigung
+
         if (!password.equals(confirmPassword)) {
             binding.etConfirmPassword.setError("Passwörter stimmen nicht überein");
             return;
         }
 
-        // Bei Firebase registrieren, Antwort kommt asynchron zurück
+        // Bei Firebase registrieren
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    // Erfolgreiche Erstellung: Abruf des Nutzers und Versand der Verifizierung
+                    // wenn Erfolgreiche Erstellung
                     FirebaseUser user = mAuth.getCurrentUser();
                     sendVerificationEmail(user);
                 } else {
@@ -116,7 +114,6 @@ public class RegisterActivity  extends AppCompatActivity {
         });
     }
 
-    // Schickt eine Bestätigungsmail an den neu registrierten User
 
     private void sendVerificationEmail(FirebaseUser user) {
         //sendVerificationEmail : schickt linkt an den User

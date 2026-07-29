@@ -100,11 +100,12 @@ ProfileActivity extends AppCompatActivity {
                     public void onComplete(Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (var document : task.getResult()) {
+                                //umwandlung db daten in java obj
                                 Post post = document.toObject(Post.class);
                                 post.setPostId(document.getId());
                                 postList.add(post);
                             }
-                            adapter.notifyDataSetChanged();
+                            adapter.notifyDataSetChanged(); //Liste in App aktualisieren
                             binding.tvPosts.setText("Posts (" + postList.size() + ")");
 
                             if (postList.isEmpty()) {
