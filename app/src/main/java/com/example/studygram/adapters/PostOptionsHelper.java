@@ -21,24 +21,22 @@ public class PostOptionsHelper {
             return;
         }
 
-        String[] options = {"Bearbeiten", "Löschen", "Teilen", "Likes anzeigen"};
+        String[] options = {"Bearbeiten", "Löschen", "Teilen"};
 
         new AlertDialog.Builder(context)
                 .setTitle(post.getTitle())
-                .setItems(options, (dialog, which) -> {
-                    switch (which) {
-                        case 0:
-                            Toast.makeText(context, "Bearbeiten kommt bald", Toast.LENGTH_SHORT).show();
-                            break;
-                        case 1:
+                .setItems(options, new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(android.content.DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            Intent intent = new Intent(context, com.example.studygram.EditPostActivity.class);
+                            intent.putExtra("post", post);
+                            context.startActivity(intent);
+                        } else if (which == 1) {
                             deletePost(post, context, postList, adapter);
-                            break;
-                        case 2:
+                        } else if (which == 2) {
                             sharePost(post, context);
-                            break;
-                        case 3:
-                            Toast.makeText(context, post.getLikes() + " Likes", Toast.LENGTH_SHORT).show();
-                            break;
+                        }
                     }
                 })
                 .show();
