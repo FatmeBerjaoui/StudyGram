@@ -11,8 +11,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
+// Zeigt bei Klick auf einen eigenen Post ein Auswahlmenü an
 public class PostOptionsHelper {
-    // Zeigt das Optionsmenü nur an, wenn der Post dem aktuell eingeloggten User gehört
+
+
+    //gehört Post wirklich aktuellen user?
     public static void showOptionsIfOwnPost(Post post, Context context, List<Post> postList, FeedAdapter adapter) {
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         boolean isOwnPost = post.getUserId() != null && post.getUserId().equals(currentUserId);
@@ -22,9 +25,10 @@ public class PostOptionsHelper {
         }
 
         String[] options = {"Bearbeiten", "Löschen", "Teilen"};
-
+//erstell Pop Up mit Optionen
         new AlertDialog.Builder(context)
                 .setTitle(post.getTitle())
+                //array wird übergeben
                 .setItems(options, new android.content.DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(android.content.DialogInterface dialog, int which) {
@@ -45,9 +49,9 @@ public class PostOptionsHelper {
     private static void deletePost(Post post, Context context, List<Post> postList, FeedAdapter adapter) {
         FirebaseFirestore.getInstance()
                 .collection("posts")
-                .document(post.getPostId())
+                .document(post.getPostId())//genau diesen PostId übergeben
                 .delete()
-                .addOnSuccessListener(aVoid -> {
+                .addOnSuccessListener(aVoid -> { //wenn succsess post aus Liste in der App
                     postList.remove(post);
                     adapter.notifyDataSetChanged();
                     Toast.makeText(context, "Post gelöscht", Toast.LENGTH_SHORT).show();
@@ -55,9 +59,9 @@ public class PostOptionsHelper {
     }
 
     private static void sharePost(Post post, Context context) {
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);  //INtent mit aktiion send
+        shareIntent.setType("text/plain"); //datentyp festlegen
         shareIntent.putExtra(Intent.EXTRA_TEXT, post.getTitle() + "\n" + post.getDescription());
-        context.startActivity(Intent.createChooser(shareIntent, "Teilen über"));
+        context.startActivity(Intent.createChooser(shareIntent, "Teilen über")); //chooser öffnen
     }
 }

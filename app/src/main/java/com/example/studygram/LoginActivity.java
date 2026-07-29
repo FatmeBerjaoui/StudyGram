@@ -20,14 +20,13 @@ public class LoginActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // View Binding verbindet das Layout mit dem Code, statt findViewById für jedes Element
+        // View Binding verbindet das Layout mit dem Code
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // "Register"-Link unterstreichen, damit er als Link erkennbar ist
         binding.tvGoToRegister.setPaintFlags(binding.tvGoToRegister.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        // Firebase Auth Instanz holen, um Login-Anfragen zu stellen
         mAuth = FirebaseAuth.getInstance();
 
         // Klick auf Login-Button startet den Login-Vorgang
@@ -38,7 +37,7 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
-        // Klick auf "Register" führt zum Registrierungs-Screen
+        // Klick auf "Register"
         binding.tvGoToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +47,7 @@ public class LoginActivity extends AppCompatActivity{
         });
     }
 
-    // Prüft die Eingaben und versucht den Login bei Firebase
+    // Datenübergabe von UI
     private void loginUser() {
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();
@@ -76,7 +75,7 @@ public class LoginActivity extends AppCompatActivity{
                     if (user != null && user.isEmailVerified()) {
                         goToMainActivity();
 
-                        // Falls Email nicht bestätigt: sofort wieder ausloggen, damit man nicht "halb eingeloggt" bleibt
+                        // Falls Email nicht bestätigt
                     } else {
                         mAuth.signOut();
                         binding.tvError.setVisibility(View.VISIBLE);

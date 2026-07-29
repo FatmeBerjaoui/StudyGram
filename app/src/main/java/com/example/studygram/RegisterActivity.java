@@ -1,7 +1,7 @@
 package com.example.studygram;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
-import android.graphics.Paint;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.studygram.databinding.ActivityRegisterBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,11 +22,10 @@ public class RegisterActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // View Binding verbindet das Layout mit dem Code
-        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        // View Binding
+        binding = ActivityRegisterBinding.inflate(getLayoutInflater());  //binding objekt: xml LAyout in Java obj
+        setContentView(binding.getRoot()); //Layout auf Bildschirm anzeigen
 
-        // "Login"-Link unterstreichen
         binding.tvLogin.setPaintFlags(binding.tvLogin.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         // Firebase Auth Instanz holen
@@ -36,6 +35,7 @@ public class RegisterActivity  extends AppCompatActivity {
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 registerUser();
             }
         });
@@ -44,6 +44,7 @@ public class RegisterActivity  extends AppCompatActivity {
         binding.tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Beenden der aktuellen Activity, Rückkehr zum Login
                 finish();
             }
         });
@@ -56,34 +57,42 @@ public class RegisterActivity  extends AppCompatActivity {
         String confirmPassword = binding.etConfirmPassword.getText().toString();
 
         // Eingaben prüfen, bevor wir zu Firebase schicken
+
+
+
         if (email.isEmpty()) {
             binding.etEmail.setError("Email wird benötigt");
             return;
         }
+
 
         if (password.isEmpty()) {
             binding.etPassword.setError("Passwort wird benötigt");
             return;
         }
 
+
         if (password.length() < 6) {
             binding.etPassword.setError("Passwort muss mindestens 6 Zeichen haben");
             return;
         }
+
 
         if (!password.equals(confirmPassword)) {
             binding.etConfirmPassword.setError("Passwörter stimmen nicht überein");
             return;
         }
 
-        // Bei Firebase registrieren, Antwort kommt asynchron zurück
+        // Bei Firebase registrieren
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    // wenn Erfolgreiche Erstellung
                     FirebaseUser user = mAuth.getCurrentUser();
                     sendVerificationEmail(user);
                 } else {
+                    // Fehlgeschlagen: Anzeige der Fehlermeldung
                     binding.tvError.setVisibility(View.VISIBLE);
                     Exception e = task.getException();
 
@@ -105,12 +114,15 @@ public class RegisterActivity  extends AppCompatActivity {
         });
     }
 
-    // Schickt eine Bestätigungsmail an den neu registrierten User
+
     private void sendVerificationEmail(FirebaseUser user) {
+        //sendVerificationEmail : schickt linkt an den User
+        //Dieser Befehl kommt beim FIrebase User an und Firebase generiert den Link und setzt ihn in eine Mail Vorlage
         user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(Task<Void> task) {
                 if (task.isSuccessful()) {
+                    // Information an den Nutzer über den Versand der E-Mail
                     binding.tvError.setVisibility(View.VISIBLE);
                     binding.tvError.setText("Erfolgreich registriert! Bitte bestätige deine Email.");
                 }

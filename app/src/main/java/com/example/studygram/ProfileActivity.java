@@ -21,6 +21,7 @@ import com.example.studygram.adapters.FeedAdapter;
 public class
 ProfileActivity extends AppCompatActivity {
 
+    // Verwaltung des View Bindings für den Zugriff auf Layout-Elemente
     private ActivityProfileBinding binding;
 
     @Override
@@ -30,8 +31,8 @@ ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // View Binding verbindet das Layout mit dem Code
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
+        setContentView(binding.getRoot());/
+//xml wird als graf. oberfläche deer Activity festgelegt
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
@@ -75,6 +76,14 @@ ProfileActivity extends AppCompatActivity {
         });
 
     }
+
+    // Diese Methode wird aufgerufen, wenn man von einer anderen Seite (z.B. EditPost) zurückkommt
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Posts neu laden, damit Änderungen sofort sichtbar sind
+        setupRecyclerView();
+    }
     // Test-Liste, um zu prüfen ob der RecyclerView funktioniert
     private void setupRecyclerView() {
         List<Post> postList= new ArrayList<>();
@@ -99,11 +108,12 @@ ProfileActivity extends AppCompatActivity {
                     public void onComplete(Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (var document : task.getResult()) {
+                                //umwandlung db daten in java obj
                                 Post post = document.toObject(Post.class);
                                 post.setPostId(document.getId());
                                 postList.add(post);
                             }
-                            adapter.notifyDataSetChanged();
+                            adapter.notifyDataSetChanged(); //Liste in App aktualisieren
                             binding.tvPosts.setText("Posts (" + postList.size() + ")");
 
                             if (postList.isEmpty()) {

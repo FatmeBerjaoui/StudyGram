@@ -26,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         binding.btnChangeUsername.setOnClickListener(new View.OnClickListener() {
             @Override
+            // Klick-Event für die Änderung des Benutzernamens
             public void onClick(View v) {
                 String newUsername = binding.etNewUsername.getText().toString();
 
@@ -39,7 +40,7 @@ public class SettingsActivity extends AppCompatActivity {
                 if (currentUser == null) {
                     return;
                 }
-
+            // Erstellung einer Anfrage zur Profil-Aktualisierung (Name setzen)
                 UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
                         .setDisplayName(newUsername)
                         .build();
@@ -59,6 +60,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
 
         });
+        // Klick-Event für das Zurücksetzen des Passworts per E-Mail
 
         binding.btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +73,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
 
                 String email = currentUser.getEmail();
-
+                // Befehl an Firebase, eine Passwort-Reset-Mail zu senden
                 FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(Task<Void> task) {
