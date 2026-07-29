@@ -76,6 +76,14 @@ ProfileActivity extends AppCompatActivity {
         });
 
     }
+
+    // Diese Methode wird aufgerufen, wenn man von einer anderen Seite (z.B. EditPost) zurückkommt
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Posts neu laden, damit Änderungen sofort sichtbar sind
+        setupRecyclerView();
+    }
     // Test-Liste, um zu prüfen ob der RecyclerView funktioniert
     private void setupRecyclerView() {
         List<Post> postList= new ArrayList<>();
