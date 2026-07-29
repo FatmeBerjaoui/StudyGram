@@ -62,7 +62,7 @@ public class EditPostActivity extends AppCompatActivity {
         // Das bestehende Bild aus der Datenbank laden
         if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) {
             Glide.with(this).load(post.getImageUrl()).into(binding.imgEditPreview);
-        }
+        } //glide lädt Bild asynchron aus der Cloud, damit App nicht verlangsamt wird
 
         // Auswahl-Liste für die Module/Kategorien vorbereiten
         String[] module = {"Programmierung", "Software Engineering", "Datenbanken", "Webentwicklung", "IT-Sicherheit", "Betriebssysteme", "Rechnernetze", "Wirtschaftsinformatik", "BWL", "VWL", "Rechnungswesen", "Controlling", "Marketing", "Personalmanagement", "Projektmanagement", "Statistik", "Mathematik", "Business Intelligence", "ERP-Systeme (SAP)", "Sonstiges"};
@@ -115,14 +115,16 @@ public class EditPostActivity extends AppCompatActivity {
 
     // Lädt das neue Foto zu Cloudinary hoch
     private void uploadImageAndSave(String title, String subject, String description) {
-        MediaManager.get().upload(newImageUri)
+        MediaManager.get().upload(newImageUri)  //neues Bild an Cloudinary
                 .unsigned("studygram_upload")
                 .callback(new UploadCallback() {
                     @Override
                     public void onStart(String requestId) {}
                     @Override
                     public void onProgress(String requestId, long bytes, long totalBytes) {}
-                    
+
+
+                    //Erst wenn wir die neue Internet URL haben wird mit Speichern in der DB weitergemacht
                     @Override
                     public void onSuccess(String requestId, Map resultData) {
                         newImageUrl = resultData.get("secure_url").toString();
@@ -133,9 +135,11 @@ public class EditPostActivity extends AppCompatActivity {
                     public void onError(String requestId, com.cloudinary.android.callback.ErrorInfo error) {
                         Toast.makeText(EditPostActivity.this, "Upload fehlgeschlagen", Toast.LENGTH_SHORT).show();
                     }
+
+                    //wenn Upload abgebrochen wird, also nicht sofort ausgeführt werden kann
                     @Override
                     public void onReschedule(String requestId, com.cloudinary.android.callback.ErrorInfo error) {}
-                }).dispatch();
+                }).dispatch(); //
     }
 
     // Aktualisiert das bestehende Dokument in der Firebase-Datenbank
