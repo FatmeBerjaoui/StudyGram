@@ -12,20 +12,20 @@ public class Post implements Serializable {
     private int likes;
     private boolean liked = false;
     private boolean saved = false;
-    private String imageUrl;
+    private String imageUrl; //Url gespeichert NICHT DAS BILD (für Cloudinary)
 
     public Post() { //leerer Konstruktor für Firebase
 
     }
 
-    public Post(String username, String title,String subject,String description, int likes) {
+    //public Post(String username, String title,String subject,String description, int likes) {
 
-        this.username = username;
-        this.title = title;
-        this.subject = subject;
-        this.description = description;
-        this.likes = likes;
-    }
+        //this.username = username; ZUM ERSTELLEN VON TEST POSTS
+        //this.title = title;
+        //this.subject = subject;
+        //this.description = description;
+        //this.likes = likes;
+    //}
     // Getter
     public String getPostId() {return postId;}
     public String getUserId() {

@@ -20,13 +20,12 @@ import android.text.TextWatcher;
 
 import com.example.studygram.databinding.FragmentForYouBinding;
 
-public class ForYouFragment extends Fragment {
+public class ForYouFragment extends Fragment { //erbt alle Funktionen eines Android-Fragments
 
     private FragmentForYouBinding binding;
     private ArrayList<Post> posts;
-    private ArrayList<Post> filteredPosts;
-    private FeedAdapter adapter;
-    private FirebaseFirestore db;
+    private FeedAdapter adapter; //Adapter gesiepichert
+    private FirebaseFirestore db; //Verbindung zur DB
 
     @Override
     public View onCreateView(
@@ -47,7 +46,7 @@ public class ForYouFragment extends Fragment {
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
 
-                    posts.clear();
+                    posts.clear(); //Post Liste geleert
 
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
 
@@ -57,14 +56,14 @@ public class ForYouFragment extends Fragment {
 
                     }
 
-                    adapter.updateList(posts);
+                    adapter.updateList(posts); //Adapter bekommt komplett neue aktualisierte Liste
 
                 })
-                .addOnFailureListener(e -> {
+                .addOnFailureListener(e -> {  //Fall Fehler aufkommt landet das Programm hier
 
                 });
 
-// HIER kommt der TextWatcher
+// HIER kommt der TextWatcher (Suche)
 
         binding.etSearch.addTextChangedListener(new TextWatcher() {
 
@@ -73,7 +72,7 @@ public class ForYouFragment extends Fragment {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) { //Methode läuft bei jeder Eingabe eines Buchstaben
 
                 ArrayList<Post> neueListe = new ArrayList<>();
 

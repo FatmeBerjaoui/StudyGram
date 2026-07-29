@@ -34,13 +34,13 @@ public class AddPostFragment extends Fragment {
     private QuizQuestionAdapter adapter;
     private FragmentAddPostBinding binding;
     private FirebaseFirestore db;
-    private Uri imageUri;
+    private Uri imageUri;  //Speichert das Bild,das der Benutzer aus der Galerie ausgewählt hat
     private String imageUrl = "";
 
 
-    private final ActivityResultLauncher<String> imagePicker =
-            registerForActivityResult(
-                    new ActivityResultContracts.GetContent(),
+    private final ActivityResultLauncher<String> imagePicker = //Bildauswähler--> öffnet Galerie
+            registerForActivityResult( //registriert, das später ein Ergebnis kommt
+                    new ActivityResultContracts.GetContent(), //Android weis dadurch das Inhalte ausgewählt werden sollen
                     uri -> {
                         if (uri != null) {
                             imageUri = uri;
@@ -58,7 +58,7 @@ public class AddPostFragment extends Fragment {
 
         binding = FragmentAddPostBinding.inflate(inflater, container, false);
         try {
-            MediaManager.get();
+            MediaManager.get(); //geprüft, ob Cloudinary bereits initialisiert wurde
         } catch (Exception e) {
 
             Map<String, String> config = new HashMap<>();
@@ -102,7 +102,7 @@ public class AddPostFragment extends Fragment {
 
         quizFragen = new ArrayList<>(); //Quiz Fragen
 
-        adapter = new QuizQuestionAdapter(quizFragen);
+        adapter = new QuizQuestionAdapter(quizFragen); //RecyclerView bekommt den Adapter
 
         binding.rvQuestions.setLayoutManager(
                new LinearLayoutManager(getContext()));
@@ -151,7 +151,7 @@ public class AddPostFragment extends Fragment {
 
             quizFragen.add(new QuizQuestion(frage, antwort));
 
-            adapter.notifyItemInserted(quizFragen.size() - 1);
+            adapter.notifyItemInserted(quizFragen.size() - 1); //RecyclerView zeigt sofort neue Frage an
 
             binding.etQuestion.setText("");
             binding.etAnswer.setText("");
@@ -258,7 +258,7 @@ public class AddPostFragment extends Fragment {
 
                     }
                 })
-                .dispatch();
+                .dispatch(); //startet upload tatsächlich davor nur vorbereitet
 
     }
 }

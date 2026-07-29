@@ -91,7 +91,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         holder.tvUsername.setText(post.getUsername());
         holder.tvLikes.setText("❤️ " + post.getLikes());
 
-        if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) {
+        if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) { //Bild aus Cloudinary geholt und angezeigt
             Glide.with(holder.itemView.getContext())
                     .load(post.getImageUrl())
                     .into(holder.imgPost);
@@ -104,7 +104,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
             @Override
             public void onClick(View v) {
                 if (!post.isLiked()) {
-                    post.setLiked(true);
+                    post.setLiked(true); //lokal gespeichert, dass Post geliked wurde
                     db.collection("posts")
                             .document(post.getPostId())
                             .update("likes", FieldValue.increment(1));
@@ -122,7 +122,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
                             .update("likes", FieldValue.increment(-1));
 
                     db.collection("likedPosts")
-                            .whereEqualTo("userId", currentUserId)
+                            .whereEqualTo("userId", currentUserId) //wird gesucht welcher Like-Eintrag gelöscht werden soll
                             .whereEqualTo("postId", post.getPostId())
                             .get()
                             .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
