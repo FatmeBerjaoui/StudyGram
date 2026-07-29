@@ -23,8 +23,8 @@ public class RegisterActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // View Binding
-        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        binding = ActivityRegisterBinding.inflate(getLayoutInflater());  //binding objekt: xml LAyout in Java obj
+        setContentView(binding.getRoot()); //Layout auf Bildschirm anzeigen
 
         binding.tvLogin.setPaintFlags(binding.tvLogin.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
