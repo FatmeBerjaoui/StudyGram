@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.FieldValue;
 
 import androidx.annotation.NonNull;
@@ -60,25 +62,27 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
                 .whereEqualTo("userId", currentUserId)
                 .whereEqualTo("postId", post.getPostId())
                 .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        post.setSaved(true);
-                        holder.btnSave.setAlpha(1f);
-                    } else {
-                        post.setSaved(false);
-                        holder.btnSave.setAlpha(0.5f);
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            post.setSaved(true);
+                            holder.btnSave.setAlpha(1f);
+                        } else {
+                            post.setSaved(false);
+                            holder.btnSave.setAlpha(0.5f);
+                        }
                     }
-
                 });
         db.collection("likedPosts")
                 .whereEqualTo("userId", currentUserId)
                 .whereEqualTo("postId", post.getPostId())
                 .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-
-                    post.setLiked(!queryDocumentSnapshots.isEmpty());
-
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        post.setLiked(!queryDocumentSnapshots.isEmpty());
+                    }
                 });
 
         holder.tvTitle.setText(post.getTitle()); //"schreibe den Titel der Posts in die Textview"
@@ -96,88 +100,85 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
             holder.imgPost.setVisibility(View.GONE);
         }
 
-        holder.btnLike.setOnClickListener(v -> {
+        holder.btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!post.isLiked()) {
+                    post.setLiked(true);
+                    db.collection("posts")
+                            .document(post.getPostId())
+                            .update("likes", FieldValue.increment(1));
 
-            if (!post.isLiked()) {
+                    Map<String, Object> likedPost = new HashMap<>();
+                    likedPost.put("userId", currentUserId);
+                    likedPost.put("postId", post.getPostId());
 
-                post.setLiked(true);
+                    db.collection("likedPosts").add(likedPost);
+                    post.setLikes(post.getLikes() + 1);
+                } else {
+                    post.setLiked(false);
+                    db.collection("posts")
+                            .document(post.getPostId())
+                            .update("likes", FieldValue.increment(-1));
 
-                db.collection("posts")
-                        .document(post.getPostId())
-                        .update("likes", FieldValue.increment(1));
-
-                Map<String, Object> likedPost = new HashMap<>();
-                likedPost.put("userId", currentUserId);
-                likedPost.put("postId", post.getPostId());
-
-                db.collection("likedPosts").add(likedPost);
-
-                post.setLikes(post.getLikes() + 1);
-
-            } else {
-
-                post.setLiked(false);
-
-                db.collection("posts")
-                        .document(post.getPostId())
-                        .update("likes", FieldValue.increment(-1));
-
-                db.collection("likedPosts")
-                        .whereEqualTo("userId", currentUserId)
-                        .whereEqualTo("postId", post.getPostId())
-                        .get()
-                        .addOnSuccessListener(queryDocumentSnapshots -> {
-
-                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                                doc.getReference().delete();
-                            }
-
-                        });
-
-                post.setLikes(post.getLikes() - 1);
-
+                    db.collection("likedPosts")
+                            .whereEqualTo("userId", currentUserId)
+                            .whereEqualTo("postId", post.getPostId())
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                                        doc.getReference().delete();
+                                    }
+                                }
+                            });
+                    post.setLikes(post.getLikes() - 1);
+                }
+                holder.tvLikes.setText("❤️ " + post.getLikes());
             }
-
-            holder.tvLikes.setText("❤️ " + post.getLikes());
-
         });
 
 
-        holder.btnSave.setOnClickListener(v -> {
+        holder.btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!post.isSaved()) {
+                    post.setSaved(true);
+                    holder.btnSave.setAlpha(1f);
 
-            if (!post.isSaved()) {
+                    Map<String, Object> savedPost = new HashMap<>();
+                    savedPost.put("userId", currentUserId);
+                    savedPost.put("postId", post.getPostId());
 
-                post.setSaved(true);
-                holder.btnSave.setAlpha(1f);
+                    db.collection("savedPosts")
+                            .add(savedPost);
+                } else {
+                    post.setSaved(false);
+                    holder.btnSave.setAlpha(0.5f);
 
-                Map<String, Object> savedPost = new HashMap<>();
-                savedPost.put("userId", currentUserId);
-                savedPost.put("postId", post.getPostId());
-
-                db.collection("savedPosts")
-                        .add(savedPost);
-
-            } else {
-
-                post.setSaved(false);
-                holder.btnSave.setAlpha(0.5f);
-
-                db.collection("savedPosts")
-                        .whereEqualTo("userId", currentUserId)
-                        .whereEqualTo("postId", post.getPostId())
-                        .get()
-                        .addOnSuccessListener(queryDocumentSnapshots -> {
-
-                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                                doc.getReference().delete();
-                            }
-
-                        });
-
+                    db.collection("savedPosts")
+                            .whereEqualTo("userId", currentUserId)
+                            .whereEqualTo("postId", post.getPostId())
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                                        doc.getReference().delete();
+                                    }
+                                }
+                            });
+                }
             }
-
         });
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PostOptionsHelper.showOptionsIfOwnPost(post, holder.itemView.getContext(), postList, FeedAdapter.this);
+            }
+        });
 
     }
 

@@ -1,6 +1,7 @@
 package com.example.studygram;
 import android.os.Bundle;
 import android.view.View;
+import android.graphics.Paint;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.studygram.databinding.ActivityRegisterBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +25,9 @@ public class RegisterActivity  extends AppCompatActivity {
         // View Binding verbindet das Layout mit dem Code
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // "Login"-Link unterstreichen
+        binding.tvLogin.setPaintFlags(binding.tvLogin.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         // Firebase Auth Instanz holen
         mAuth = FirebaseAuth.getInstance();

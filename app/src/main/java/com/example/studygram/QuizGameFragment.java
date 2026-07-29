@@ -100,6 +100,11 @@ public class QuizGameFragment extends Fragment {
 
         });
 
+        binding.btnBack.setOnClickListener(v -> {
+            androidx.navigation.fragment.NavHostFragment.findNavController(this)
+                    .popBackStack();
+        });
+
         return binding.getRoot();
     }
 

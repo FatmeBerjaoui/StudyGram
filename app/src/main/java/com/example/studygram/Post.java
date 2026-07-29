@@ -1,6 +1,8 @@
 package com.example.studygram;
 
-public class Post {
+import java.io.Serializable;
+
+public class Post implements Serializable {
     private String postId;
     private String userId;
     private String title;

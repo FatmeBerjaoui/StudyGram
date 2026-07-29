@@ -1,142 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#121212">
 
-    <!-- Titel Part 1 -->
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/study_gram2_cropped"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="80dp"/>
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create an "
-        android:textSize="27sp"
-        android:textColor="#FF3FB5"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/poppins_semi_bold_italic"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="125dp"/>
-
-    <!-- StudyGram Logo -->
-    <TextView
-        android:id="@+id/tvStudyGram"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="StudyGram"
-        android:textSize="35sp"
+        android:text="Join"
         android:textColor="#FF3FB5"
-        android:fontFamily="@font/poppins_semi_bold_italic"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        android:textSize="37sp"
+        app:layout_constraintEnd_toEndOf="@id/ivLogo"
+        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintStart_toStartOf="@id/ivLogo"
+        app:layout_constraintTop_toTopOf="@id/ivLogo" />
 
-    <!-- Titel Part 1 -->
-    <TextView
-        android:id="@+id/tvAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Account"
-        android:textSize="27sp"
-        android:textColor="#FF3FB5"
-        android:fontFamily="@font/poppins_semi_bold_italic"
-        app:layout_constraintTop_toBottomOf="@id/tvStudyGram"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
-
-
-    <!-- Email -->
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_input"
+        android:fontFamily="@font/poppins_regular"
         android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="16dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        android:fontFamily="@font/poppins_regular"
-        android:inputType="textEmailAddress"
-        android:background="@drawable/rounded_input"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvAccount"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/ivLogo" />
 
-    <!-- Password -->
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_input"
+        android:fontFamily="@font/poppins_regular"
         android:hint="Password"
-        android:textSize="16sp"
+        android:inputType="textPassword"
+        android:padding="16dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        android:fontFamily="@font/poppins_regular"
-        android:inputType="textPassword"
-        android:background="@drawable/rounded_input"
-        app:layout_constraintTop_toBottomOf="@id/etEmail"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/etEmail" />
 
-    <!-- Confirm Password -->
     <EditText
         android:id="@+id/etConfirmPassword"
         android:layout_width="0dp"
-        android:textSize="16sp"
         android:layout_height="56dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_input"
+        android:fontFamily="@font/poppins_regular"
         android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:padding="16dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        android:fontFamily="@font/poppins_regular"
-        android:inputType="textPassword"
-        android:backgroundTint="#FF3FB5"
-        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
-    <!-- Fehlermeldung -->
     <TextView
         android:id="@+id/tvError"
-        android:textSize="14sp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="#A92F2F"
         android:visibility="gone"
-        android:fontFamily="@font/poppins_regular"
-        android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@id/etConfirmPassword"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"/>
 
-    <!-- Register Button -->
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="0dp"
         android:layout_height="55dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="24dp"
-        android:text="REGISTER"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textColor="#FFFFFF"
+        android:layout_marginTop="48dp"
         android:background="@drawable/rounded_button"
         android:fontFamily="@font/poppins_black"
-        app:layout_constraintTop_toBottomOf="@id/tvError"
+        android:text="REGISTER"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:backgroundTint="#FF3FB5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
+        app:layout_constraintTop_toBottomOf="@id/tvError" />
 
     <TextView
         android:id="@+id/Question"
@@ -145,24 +119,28 @@
         android:text="Already have an account?"
         android:textSize="16sp"
         android:textColor="#FFFFFF"
-        android:fontFamily="@font/poppins_regular"
-        android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/btnRegister"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:fontFamily ="@font/poppins_regular"/>
 
-    <!-- Login Link -->
     <TextView
         android:id="@+id/tvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textColor="#FF3FB5"
         android:fontFamily="@font/poppins_italic"
         app:layout_constraintTop_toBottomOf="@id/Question"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:shadowColor="#FF3FB5"
+        android:shadowRadius="4"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
