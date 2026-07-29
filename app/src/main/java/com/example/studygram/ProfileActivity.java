@@ -32,7 +32,7 @@ ProfileActivity extends AppCompatActivity {
         // View Binding verbindet das Layout mit dem Code
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());/
-/xml wird als graf. oberfläche deer Activity festgelegt
+//xml wird als graf. oberfläche deer Activity festgelegt
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
