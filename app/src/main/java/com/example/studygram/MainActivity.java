@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return false; // Wichtig: false zurückgeben, damit der Fokus auf dem aktuellen Tab bleibt
             } else {
-
+//setzt automatisch passendes ftagmemt
                 return NavigationUI.onNavDestinationSelected(item, navController);
             }
         });
