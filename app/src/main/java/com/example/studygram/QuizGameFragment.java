@@ -68,7 +68,7 @@ public class QuizGameFragment extends Fragment {
 
             QuizQuestion frage = quizFragen.get(aktuelleFrage);
 
-            if (eingabe.equalsIgnoreCase(frage.getAntwort())) {
+           if (eingabe.equalsIgnoreCase(frage.getAntwort())) {
 
                 richtigeAntworten++;
 
@@ -127,7 +127,7 @@ public class QuizGameFragment extends Fragment {
 
                         String postId = likedDoc.getString("postId");
 
-                        if (postId == null) {
+                        if (postId == null) { //falls keine Post-ID vorhanden-->überspringen
                             continue;
                         }
 
@@ -136,7 +136,7 @@ public class QuizGameFragment extends Fragment {
                                 .get()
                                 .addOnSuccessListener(postDocument -> {
 
-                                    if (!postDocument.exists()) {
+                                    if (!postDocument.exists()) { //falls Dokument gelöscht wurde passiert nichts
                                         return;
                                     }
 
@@ -147,9 +147,9 @@ public class QuizGameFragment extends Fragment {
 
                                         for (Object obj : fragen) {
 
-                                            if (obj instanceof java.util.Map) {
+                                            if (obj instanceof java.util.Map) { //überprüft Datentyp eines Objekts
 
-                                                java.util.Map<?, ?> map =
+                                                java.util.Map<?, ?> map = //Objekt in Map umgewandelt
                                                         (java.util.Map<?, ?>) obj;
 
                                                 String frage =
@@ -159,7 +159,7 @@ public class QuizGameFragment extends Fragment {
                                                         (String) map.get("antwort");
 
                                                 quizFragen.add(
-                                                        new QuizQuestion(frage, antwort)
+                                                        new QuizQuestion(frage, antwort) //aus Firestore Daten echtes Objekt
                                                 );
                                             }
                                         }
@@ -176,7 +176,7 @@ public class QuizGameFragment extends Fragment {
                                             );
                                         }
 
-                                        startZeit = System.currentTimeMillis();
+                                        startZeit = System.currentTimeMillis(); //speichert wann Quiz beginnt
                                         zeigeFrage();
 
                                     }
@@ -214,7 +214,7 @@ public class QuizGameFragment extends Fragment {
             binding.tvQuestionNumber.setText("");
 
             binding.btnNext.setEnabled(false);
-            binding.etAnswer.setEnabled(false);
+            binding.etAnswer.setEnabled(false); //Eingabefeld deaktiviert
 
             return;
         }
