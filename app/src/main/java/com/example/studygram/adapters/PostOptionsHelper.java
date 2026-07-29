@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
+// Zeigt bei Klick auf einen eigenen Post ein Auswahlmenü an
 public class PostOptionsHelper {
 
 
@@ -27,7 +28,7 @@ public class PostOptionsHelper {
 //erstell Pop Up mit Optionen
         new AlertDialog.Builder(context)
                 .setTitle(post.getTitle())
-                //array option wird übergeben
+                //array wird übergeben
                 .setItems(options, new android.content.DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(android.content.DialogInterface dialog, int which) {
