@@ -66,7 +66,9 @@ public class LoginActivity extends AppCompatActivity{
         // Login-Anfrage an Firebase, Antwort kommt asynchron zurück
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
+            //Methode die automatisch aufgerufen wird, sobald eine asynchrone Aufgabe fertig ist
             public void onComplete(Task<AuthResult> task) {
+                //Task<AuthResult> parametertyp aus firebase Bibliothek
                 if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
 
