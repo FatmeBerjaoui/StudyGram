@@ -12,8 +12,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 public class PostOptionsHelper {
-    // Zeigt das Optionsmenü nur an, wenn der Post dem aktuell eingeloggten User gehört
-    //static, um die Klasse ohne Objekterstellungaufzurufen
+
+
+    //gehört Post wirklich aktuellen user?
     public static void showOptionsIfOwnPost(Post post, Context context, List<Post> postList, FeedAdapter adapter) {
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         boolean isOwnPost = post.getUserId() != null && post.getUserId().equals(currentUserId);
@@ -23,7 +24,7 @@ public class PostOptionsHelper {
         }
 
         String[] options = {"Bearbeiten", "Löschen", "Teilen"};
-
+//erstell Pop Up mit Optionen
         new AlertDialog.Builder(context)
                 .setTitle(post.getTitle())
                 //array option wird übergeben

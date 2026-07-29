@@ -15,7 +15,6 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    // Verwaltung des View Bindings für den Zugriff auf die UI-Elemente
     private ActivitySettingsBinding binding;
 
     @Override
