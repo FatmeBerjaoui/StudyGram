@@ -3,7 +3,7 @@ plugins {
     id("com.google.gms.google-services")
 
 }
-
+//google services plug in aktivieren
 android {
     namespace = "com.example.studygram"
     compileSdk = 36
@@ -35,7 +35,7 @@ android {
         viewBinding = true
     }
 }
-
+//Bibliotheken
 dependencies {
     implementation(libs.activity.ktx)
     implementation(libs.appcompat)

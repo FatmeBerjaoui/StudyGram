@@ -26,6 +26,7 @@ public class PostOptionsHelper {
 
         new AlertDialog.Builder(context)
                 .setTitle(post.getTitle())
+                //array option wird übergeben
                 .setItems(options, new android.content.DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(android.content.DialogInterface dialog, int which) {
@@ -46,9 +47,9 @@ public class PostOptionsHelper {
     private static void deletePost(Post post, Context context, List<Post> postList, FeedAdapter adapter) {
         FirebaseFirestore.getInstance()
                 .collection("posts")
-                .document(post.getPostId())
+                .document(post.getPostId())//genau diesen PostId übergeben
                 .delete()
-                .addOnSuccessListener(aVoid -> {
+                .addOnSuccessListener(aVoid -> { //wenn succsess post aus Liste in der App
                     postList.remove(post);
                     adapter.notifyDataSetChanged();
                     Toast.makeText(context, "Post gelöscht", Toast.LENGTH_SHORT).show();
@@ -56,9 +57,9 @@ public class PostOptionsHelper {
     }
 
     private static void sharePost(Post post, Context context) {
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);  //INtent mit aktiion send
+        shareIntent.setType("text/plain"); //datentyp festlegen
         shareIntent.putExtra(Intent.EXTRA_TEXT, post.getTitle() + "\n" + post.getDescription());
-        context.startActivity(Intent.createChooser(shareIntent, "Teilen über"));
+        context.startActivity(Intent.createChooser(shareIntent, "Teilen über")); //chooser öffnen
     }
 }
