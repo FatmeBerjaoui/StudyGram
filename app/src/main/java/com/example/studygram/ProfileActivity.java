@@ -21,6 +21,7 @@ import com.example.studygram.adapters.FeedAdapter;
 public class
 ProfileActivity extends AppCompatActivity {
 
+    // Verwaltung des View Bindings für den Zugriff auf Layout-Elemente
     private ActivityProfileBinding binding;
 
     @Override

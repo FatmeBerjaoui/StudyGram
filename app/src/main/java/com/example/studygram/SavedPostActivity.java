@@ -19,33 +19,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SavedPostActivity extends AppCompatActivity {
+    // Verwaltung des View Bindings für den Zugriff auf Layout-Elemente
     private ActivitySavedPostsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // Initialisierung des View Bindings und Verknüpfung mit dem Layout
         binding = ActivitySavedPostsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Aufruf der Methode zum Laden der gespeicherten Beiträge
         loadSavedPosts();
 
+        // Definition des Klick-Events für den Zurück-Button
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Beenden der Activity und Rückkehr zur vorherigen Seite
+
                 finish();
             }
         });
     }
 
+    // Abruf der Liste aller Posts, die der Nutzer gespeichert hat
     private void loadSavedPosts() {
+        // Erstellung der Liste für die Post-Objekte und Initialisierung des Adapters
         List<Post> savedPostsList = new ArrayList<>();
         FeedAdapter adapter = new FeedAdapter(savedPostsList);
+
+
+        // Konfiguration des RecyclerViews mit einem LayoutManager und dem Adapter
         binding.rvSavedPosts.setLayoutManager(new LinearLayoutManager(this));
         binding.rvSavedPosts.setAdapter(adapter);
 
+        // Abruf des aktuell angemeldeten Nutzers über Firebase Auth
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+
+        // Abbruch der Methode, falls kein Nutzer angemeldet ist
         if (currentUser == null) {
             return;
         }
@@ -62,21 +76,24 @@ public class SavedPostActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(Task<QuerySnapshot> savedTask) {
                         if (savedTask.isSuccessful()) {
+                            // Erstellung einer Liste für die gefundenen Post-IDs
                             List<String> postIds = new ArrayList<>();
 
+                            // Extraktion der IDs aus den Datenbank-Dokumenten
                             for (QueryDocumentSnapshot document : savedTask.getResult()) {
                                 String postId = document.getString("postId");
                                 postIds.add(postId);
                             }
-
+                            // Anzeige einer Meldung, falls keine gespeicherten Posts vorhanden sind
                             if (postIds.isEmpty()) {
                                 binding.tvEmptyMessage.setVisibility(View.VISIBLE);
                             } else {
                                 binding.tvEmptyMessage.setVisibility(View.GONE);
                             }
-
+                            // Aufruf der Methode zum Laden der tatsächlichen Post-Inhalte anhand der
                             loadPostsByIds(postIds, savedPostsList, adapter);
                         } else {
+                            // Anzeige einer Fehlermeldung bei fehlgeschlagener Datenbankabfrage
                             Toast.makeText(SavedPostActivity.this, "Gespeicherte Posts konnten nicht geladen werden", Toast.LENGTH_SHORT).show();
                         }
                     }
