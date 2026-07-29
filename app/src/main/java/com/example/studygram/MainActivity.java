@@ -32,6 +32,7 @@ import com.example.studygram.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 
+//Menüleiste mit NavController verknüpfen
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return false; // Wichtig: false zurückgeben, damit der Fokus auf dem aktuellen Tab bleibt
             } else {
+
                 return NavigationUI.onNavDestinationSelected(item, navController);
             }
         });
