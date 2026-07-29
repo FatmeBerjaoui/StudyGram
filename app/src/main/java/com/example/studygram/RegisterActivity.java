@@ -1,7 +1,7 @@
 package com.example.studygram;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
-import android.graphics.Paint;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.studygram.databinding.ActivityRegisterBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +36,7 @@ public class RegisterActivity  extends AppCompatActivity {
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 registerUser();
             }
         });
@@ -44,6 +45,7 @@ public class RegisterActivity  extends AppCompatActivity {
         binding.tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Beenden der aktuellen Activity, Rückkehr zum Login
                 finish();
             }
         });
@@ -56,21 +58,28 @@ public class RegisterActivity  extends AppCompatActivity {
         String confirmPassword = binding.etConfirmPassword.getText().toString();
 
         // Eingaben prüfen, bevor wir zu Firebase schicken
+
+
+        // Prüfung auf leeres E-Mail-Feld
         if (email.isEmpty()) {
             binding.etEmail.setError("Email wird benötigt");
             return;
         }
 
+
+        // Prüfung auf leeres Passwort-Feld
         if (password.isEmpty()) {
             binding.etPassword.setError("Passwort wird benötigt");
             return;
         }
 
+        // Prüfung der Mindestlänge des Passworts (Vorgabe durch Firebase)
         if (password.length() < 6) {
             binding.etPassword.setError("Passwort muss mindestens 6 Zeichen haben");
             return;
         }
 
+        // Vergleich von Passwort und Bestätigung
         if (!password.equals(confirmPassword)) {
             binding.etConfirmPassword.setError("Passwörter stimmen nicht überein");
             return;
@@ -81,9 +90,11 @@ public class RegisterActivity  extends AppCompatActivity {
             @Override
             public void onComplete(Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    // Erfolgreiche Erstellung: Abruf des Nutzers und Versand der Verifizierung
                     FirebaseUser user = mAuth.getCurrentUser();
                     sendVerificationEmail(user);
                 } else {
+                    // Fehlgeschlagen: Anzeige der Fehlermeldung
                     binding.tvError.setVisibility(View.VISIBLE);
                     Exception e = task.getException();
 
@@ -106,11 +117,15 @@ public class RegisterActivity  extends AppCompatActivity {
     }
 
     // Schickt eine Bestätigungsmail an den neu registrierten User
+
     private void sendVerificationEmail(FirebaseUser user) {
+        //sendVerificationEmail : schickt linkt an den User
+        //Dieser Befehl kommt beim FIrebase User an und Firebase generiert den Link und setzt ihn in eine Mail Vorlage
         user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(Task<Void> task) {
                 if (task.isSuccessful()) {
+                    // Information an den Nutzer über den Versand der E-Mail
                     binding.tvError.setVisibility(View.VISIBLE);
                     binding.tvError.setText("Erfolgreich registriert! Bitte bestätige deine Email.");
                 }
