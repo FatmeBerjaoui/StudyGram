@@ -17,18 +17,18 @@ public class QuizFragment extends Fragment {
     private FragmentQuizBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,// Lädt/erstellt die XML-Oberfläche
+                             ViewGroup container,            // Übergeordneter Container des Fragments
+                             Bundle savedInstanceState) {   // Kann gespeicherte Zustände enthalten
 
         binding = FragmentQuizBinding.inflate(inflater, container, false);
 
         binding.btnLikedQuiz.setOnClickListener(v -> {
 
-            Bundle bundle = new Bundle();
-            bundle.putString("quizType", "liked");
+            Bundle bundle = new Bundle(); // Bundle = Container, um Daten an das nächste Fragment zu übergeben
+            bundle.putString("quizType", "liked"); // Wir speichern den Quiz-Typ "liked" im Bundle, Schlüssel: quizType, Wert: liked
 
-            NavHostFragment.findNavController(this)
+            NavHostFragment.findNavController(this) // Navigation vom QuizFragment zum QuizGameFragment mit Bundle
                     .navigate(R.id.action_QuizFragment_to_QuizGameFragment, bundle);
 
         });
