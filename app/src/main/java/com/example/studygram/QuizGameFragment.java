@@ -23,7 +23,7 @@ public class QuizGameFragment extends Fragment {
 
     private FragmentQuizGameBinding binding;
 
-    private ArrayList<QuizQuestion> quizFragen = new ArrayList<>();
+    private ArrayList<QuizQuestion> quizFragen = new ArrayList<>();  // Hier werden die Quizfragen gespeichert, die gerade gespielt werden
 
     private int aktuelleFrage = 0;
     private int richtigeAntworten = 0;
@@ -43,8 +43,9 @@ public class QuizGameFragment extends Fragment {
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        quizType = getArguments().getString("quizType");
+        quizType = getArguments().getString("quizType"); // Übergebene Information aus dem vorherigen Fragment holen.
 
+        // Je nach Quiz-Typ wird eine andere Methode zum Laden der Fragen aufgerufen
         if (quizType.equals("liked")) {
 
             ladeLikedQuiz();
@@ -58,7 +59,7 @@ public class QuizGameFragment extends Fragment {
             ladeWrongQuiz();
 
         }
-        binding.btnNext.setOnClickListener(v -> {
+        binding.btnNext.setOnClickListener(v -> { // Wird ausgeführt, wenn der Benutzer auf "Antwort prüfen" klickt
 
             if (quizFragen.isEmpty()) {
                 return;
@@ -68,9 +69,9 @@ public class QuizGameFragment extends Fragment {
 
             QuizQuestion frage = quizFragen.get(aktuelleFrage);
 
-           if (eingabe.equalsIgnoreCase(frage.getAntwort())) {
+           if (eingabe.equalsIgnoreCase(frage.getAntwort())) { // Benutzerantwort mit der richtigen Antwort vergleichen (inkl. nicht Beachten der Groß-und Kleinschreibung)
 
-                richtigeAntworten++;
+                richtigeAntworten++; // Zähler erhöhen
 
                 Toast.makeText(getContext(),
                         "✅ Bravo! Die Antwort ist richtig.",
@@ -83,7 +84,7 @@ public class QuizGameFragment extends Fragment {
                                 + frage.getAntwort(),
                         Toast.LENGTH_LONG).show();
 
-                Map<String, Object> wrongQuestion = new HashMap<>();
+                Map<String, Object> wrongQuestion = new HashMap<>(); // Map wird verwendet, um die Daten für Firestore zusammenzustellen
 
                 wrongQuestion.put("userId", currentUser.getUid());
                 wrongQuestion.put("frage", frage.getFrage());
@@ -94,15 +95,15 @@ public class QuizGameFragment extends Fragment {
 
             }
 
-            aktuelleFrage++;
+            aktuelleFrage++; // Wechsel zur nächsten Frage
 
             zeigeFrage();
 
         });
 
-        binding.btnBack.setOnClickListener(v -> {
+        binding.btnBack.setOnClickListener(v -> { // -Button
             androidx.navigation.fragment.NavHostFragment.findNavController(this)
-                    .popBackStack();
+                    .popBackStack(); // popBackStack() geht im Navigationsverlauf eine Seite zurück
         });
 
         return binding.getRoot();
@@ -114,16 +115,17 @@ public class QuizGameFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+    //LIKED QUIZ METHODE
     private void ladeLikedQuiz() {
 
-        quizFragen.clear();
+        quizFragen.clear(); // alte Fragen entfernen
 
         db.collection("likedPosts")
                 .whereEqualTo("userId", currentUser.getUid())
                 .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
+                .addOnSuccessListener(queryDocumentSnapshots -> { // Es werden nur Likes des aktuell eingeloggten Users geladen + Laden der "likedPost" Collection aus der DB
 
-                    for (DocumentSnapshot likedDoc : queryDocumentSnapshots.getDocuments()) {
+                    for (DocumentSnapshot likedDoc : queryDocumentSnapshots.getDocuments()) { // Alle gefundenen Dokumente durchlaufen
 
                         String postId = likedDoc.getString("postId");
 
@@ -131,7 +133,7 @@ public class QuizGameFragment extends Fragment {
                             continue;
                         }
 
-                        db.collection("posts")
+                        db.collection("posts")// Mit der Post-ID den eigentlichen Post aus "posts" laden
                                 .document(postId)
                                 .get()
                                 .addOnSuccessListener(postDocument -> {
@@ -141,11 +143,11 @@ public class QuizGameFragment extends Fragment {
                                     }
 
                                     ArrayList<?> fragen =
-                                            (ArrayList<?>) postDocument.get("quizFragen");
+                                            (ArrayList<?>) postDocument.get("quizFragen"); // Quizfragen aus dem Post holen
 
                                     if (fragen != null) {
 
-                                        for (Object obj : fragen) {
+                                        for (Object obj : fragen) { // Jede gespeicherte Frage durchlaufen
 
                                             if (obj instanceof java.util.Map) { //überprüft Datentyp eines Objekts
 
@@ -167,9 +169,9 @@ public class QuizGameFragment extends Fragment {
 
                                     if (!quizFragen.isEmpty()) {
 
-                                        Collections.shuffle(quizFragen);
+                                        Collections.shuffle(quizFragen); // Fragen zufällig mischen
 
-                                        if (quizFragen.size() > 10) {
+                                        if (quizFragen.size() > 10) { // max 10 Fragen verwenden
 
                                             quizFragen = new ArrayList<>(
                                                     quizFragen.subList(0, 10)
@@ -188,20 +190,22 @@ public class QuizGameFragment extends Fragment {
                 });
 
     }
+    //FRAGE ANZEIGEN
     private void zeigeFrage() {
 
-        if (aktuelleFrage >= quizFragen.size()) {
+        if (aktuelleFrage >= quizFragen.size()) { // Wenn keine Fragen mehr übrig sind → Quiz ist beendet
 
-            long dauerMillis = System.currentTimeMillis() - startZeit;
+            long dauerMillis = System.currentTimeMillis() - startZeit; // Berechnen, wie lange das Quiz gedauert hat
 
             long sekunden = dauerMillis / 1000;
             long minuten = sekunden / 60;
-            sekunden = sekunden % 60;
+            sekunden = sekunden % 60; // Umrechnen
 
             int falscheAntworten = quizFragen.size() - richtigeAntworten;
 
-            int score = (int) (((double) richtigeAntworten / quizFragen.size()) * 100);
+            int score = (int) (((double) richtigeAntworten / quizFragen.size()) * 100); // Prozentualen Score berechnen
 
+            // Ergebnis auf Bildschirm anzeigen lassen
             binding.tvQuestion.setText(
                     "🎉 Quiz beendet!\n\n" +
                             "Fragen: " + quizFragen.size() + "\n\n" +
@@ -211,7 +215,7 @@ public class QuizGameFragment extends Fragment {
                             "Dauer: " + String.format("%02d:%02d", minuten, sekunden)
             );
 
-            binding.tvQuestionNumber.setText("");
+            binding.tvQuestionNumber.setText(""); // "Frage X von Y" entfernen
 
             binding.btnNext.setEnabled(false);
             binding.etAnswer.setEnabled(false); //Eingabefeld deaktiviert
@@ -221,7 +225,7 @@ public class QuizGameFragment extends Fragment {
 
         QuizQuestion frage = quizFragen.get(aktuelleFrage);
 
-        binding.tvQuestionNumber.setText(
+        binding.tvQuestionNumber.setText( // Anzeige "Frage 1 von 10" aktualisieren
                 "Frage "
                         + (aktuelleFrage + 1)
                         + " von "
@@ -233,6 +237,7 @@ public class QuizGameFragment extends Fragment {
 
     }
 
+    // SAVED QUIZ --> dasselbe Prinzip, wie bei liked Post
     private void ladeSavedQuiz() {
 
         quizFragen.clear();
@@ -307,28 +312,29 @@ public class QuizGameFragment extends Fragment {
 
     }
 
+    // WRONG QUIZ
     private void ladeWrongQuiz() {
 
         quizFragen.clear();
 
-        db.collection("wrongQuestions")
+        db.collection("wrongQuestions")// Falsch beantwortete Fragen des aktuellen Users laden
                 .whereEqualTo("userId", currentUser.getUid())
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
 
                     for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
 
-                        String frage = document.getString("frage");
+                        String frage = document.getString("frage"); // Frage und richtige Antwort aus Firestore holen
                         String antwort = document.getString("antwort");
 
-                        if (frage != null && antwort != null) {
+                        if (frage != null && antwort != null) { // Nur vollständige Fragen hinzufügen
 
                             quizFragen.add(new QuizQuestion(frage, antwort));
 
                         }
 
                     }
-
+                    // ab hier ist es dasselbe wie bei LIKEDPOST und SAVED
                     if (!quizFragen.isEmpty()) {
 
                         Collections.shuffle(quizFragen);
